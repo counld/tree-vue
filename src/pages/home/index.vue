@@ -128,7 +128,7 @@ export default {
 
 <style scoped>
 .home-top {
-	margin-top: 10px;
+	padding-top: 10px;
 }
 .el-carousel {
 	padding: 4px;

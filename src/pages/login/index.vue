@@ -150,7 +150,6 @@ import { AuthLogin } from '../../utils/queryApi';
 	overflow: hidden;
 	position: relative;
 	height: 100vh;
-	background-color: #24292f; 
 }
 .login-title {
 	margin-top: 20px;
