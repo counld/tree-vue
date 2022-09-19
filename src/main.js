@@ -1,15 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue';
 import 'element-ui/lib/theme-chalk/index.css';
-import { Message } from 'element-ui';
+import { Message, MessageBox } from 'element-ui';
 import router from './router';
 import Componets from './components/FormatIntroduce';
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import './assets/style/index.css'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import { scrollTop } from './utils/scrollTop.js';
+import './assets/style/index.css';
+import * as echarts from "echarts";
+
+Vue.prototype.$echarts = echarts;
+Vue.prototype.$scrollTop = scrollTop;
 
 Vue.use(VueAxios, axios);
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox;
 
 Componets.forEach(function(item) {
 	Vue.use(item)

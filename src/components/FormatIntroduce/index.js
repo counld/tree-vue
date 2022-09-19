@@ -12,6 +12,23 @@ import {
 	Dropdown,
 	DropdownItem,
 	DropdownMenu,
+	Card,
+	Tabs,
+	TabPane,
+	Empty,
+	Tooltip,
+	Avatar,
+	Select,
+	Option,
+	Divider,
+	TimePicker,
+	Switch,
+	Tag,
+	Upload,
+	Dialog,
+	CheckboxGroup,
+	Checkbox,
+	Loading,
 } from 'element-ui';
 
 const Componets = [
@@ -28,6 +45,23 @@ const Componets = [
 	Dropdown,
 	DropdownItem,
 	DropdownMenu,
+	Card,
+	Tabs,
+	TabPane,
+	Empty,
+	Tooltip,
+	Avatar,
+	Select,
+	Option,
+	Divider,
+	TimePicker,
+	Switch,
+	Tag,
+	Upload,
+	Dialog,
+	CheckboxGroup,
+	Checkbox,
+	Loading
 ];
 
 export default Componets;

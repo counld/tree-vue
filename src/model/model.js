@@ -12,7 +12,7 @@ class Model {
             host: '127.0.0.1',
             user: 'root',
             password: '123456',
-            database: 'blog'
+            database: 'my-vue',
         });
         Model.conn.connect(err => {
             if (err) {

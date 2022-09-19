@@ -9,6 +9,7 @@ npm install
 ```
 npm run serve
 ```
+使用vue搭建后台服务，为其他小应用搭建入口平台
 
 ### express + mysql + vue-axios 搭建node+vue项目
 ```
@@ -23,6 +24,7 @@ npm run serve
 node服务要在本地另开一个端口,
 npm run start;
 ```
+### 注意打包之前切换环境，不然没定义环境会出现错误请求;
 
 ### Compiles and minifies for production
 ```

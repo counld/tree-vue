@@ -4,7 +4,7 @@ var connection = {
 	host: '127.0.0.1',
 	user: 'root',
 	password: '123456',
-	database: 'blog',
+	database: 'my-vue',
 }
 
 // 用于保存数据连接实例
