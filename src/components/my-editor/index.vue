@@ -19,21 +19,28 @@
 </template>
 <script>
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
-
+import { isMobile } from "@/utils/judgmentTools.js";
+import { API_URL} from "../../../service/config.js";
 export default {
   name: "my-edtior",
   components: { Editor, Toolbar },
   props: [""],
   data() {
+    var isShowFullScreen = false
+    if(isMobile()) { //如果是移动端关闭fullScreen
+         isShowFullScreen = true
+    }
     return {
       editor: null,
       html: "",
-      toolbarConfig: {},
+      toolbarConfig: {
+        excludeKeys: [isShowFullScreen && 'fullScreen',]
+      },
       editorConfig: {
         placeholder: "请输入内容...",
         MENU_CONF: {
           uploadImage: {
-            server: "http://xuewuboy.club:8080/upload/image", // 上传服务器地址 --> 必填，否则上传图片会报错。
+            server: API_URL + "/upload/image", // 上传服务器地址 --> 必填，否则上传图片会报错。
             // form-data fieldName ，默认值 'wangeditor-uploaded-image'
             fieldName: "editormd-image-file",
 

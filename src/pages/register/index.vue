@@ -87,12 +87,12 @@ export default {
 </script>
 <style scoped>
 .container {
-  padding: 8px;
   height: 100vh;
 }
 
 .show-register {
   position: absolute;
+  min-width: 350px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -100,7 +100,7 @@ export default {
 
 @media screen and (max-width: 380px) {
   .show-register {
-    left: 7%;
+    left: 14px;
     top: 50%;
     transform: translateY(-50%);
   }

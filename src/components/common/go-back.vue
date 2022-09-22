@@ -25,6 +25,9 @@ export default {
   border-radius: 4px;
   text-align: center;
   font-size: 24px;
-  background-color: rgb(214, 232, 238);
+  background-color: #d6e8ee;
+}
+.goback:hover {
+  background-color: #b8deeb;
 }
 </style>

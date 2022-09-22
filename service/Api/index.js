@@ -57,7 +57,6 @@ const GetSwipper = (sql) => {
 const PostLoginAuth = (sql) => {
 	return (req, res) => {
 		let arr = req.body.login;
-		console.log(arr,'req.body')
 		ServerConn(sql, arr, res);
 	}
 }
@@ -98,6 +97,13 @@ const GetRiddleList = (sql) => {
 		ServerConn(sql,nums, res);
 	}
 }
+//获取最新猜谜语项
+const GetNewestRiddleList = (sql) => {
+	return (req, res) => {
+		const nums = Number(req.query.nums);
+		ServerConn(sql,nums, res);
+	}
+}
 //下一个谜底
 const GetNextRiddle = (sql) => {
 	return (req, res) => {
@@ -120,5 +126,6 @@ module.exports = {
 	PostAddArticle,
 	PostAddRiddle,
 	GetRiddleList,
+	GetNewestRiddleList,
 	GetNextRiddle,
 }

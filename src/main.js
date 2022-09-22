@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue';
-import 'element-ui/lib/theme-chalk/index.css';
 import { Message, MessageBox } from 'element-ui';
 import router from './router';
 import Componets from './components/FormatIntroduce';
+import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import { scrollTop } from './utils/scrollTop.js';

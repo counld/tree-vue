@@ -29,6 +29,8 @@ import {
 	CheckboxGroup,
 	Checkbox,
 	Loading,
+	Table,
+	TableColumn,
 } from 'element-ui';
 
 const Componets = [
@@ -61,7 +63,9 @@ const Componets = [
 	Dialog,
 	CheckboxGroup,
 	Checkbox,
-	Loading
+	Loading,
+	Table,
+	TableColumn,
 ];
 
 export default Componets;

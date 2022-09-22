@@ -1,6 +1,6 @@
 <template>
   <div class="wraper">
-    <div class="select-list">
+    <div class="select-list" v-once>
       <el-input
         class="select-title"
         placeholder="请辞一个标题"
@@ -107,6 +107,7 @@ export default {
         description: this.description ? this.description : null,
         thumbnail: this.imageUrl ? this.imageUrl : null,
         category: this.id,
+        creatTime: new Date().toLocaleString(),
       };
       addArtice
         .call(this, article)

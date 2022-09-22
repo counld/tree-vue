@@ -3,8 +3,9 @@
     <p>上传头像</p>
     <el-upload
       class="avatar-uploader"
-      action="http://xuewuboy.club:8080/upload/avatar"
+      :action="baseUrl"
       :show-file-list="false"
+      :on-remove="handleRemove"
       :on-success="handleAvatarSuccess"
       :before-upload="beforeAvatarUpload"
     >
@@ -14,14 +15,19 @@
   </div>
 </template>
 <script>
+  import { API_URL } from "../../../service/config";
 export default {
   name: "my-upload",
   props: ['imageUrl'],
   data() {
     return {
+      baseUrl: API_URL + '/upload/avatar'
     };
   },
   methods: {
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
     handleAvatarSuccess(res, file) {
       this.$emit('handleUpload',URL.createObjectURL(file.raw),res);
       // console.log(this.imageUrl,'imageUrl',file,'ieraudn',res);

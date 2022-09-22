@@ -17,7 +17,7 @@ export default {
   },
   methods:{
     handleScroll(){
-      if (window.scrollY > 600) {
+      if (window.scrollY > 800) {
         this.isShowTop = true
       } else {
         this.isShowTop = false

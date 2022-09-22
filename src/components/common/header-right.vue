@@ -15,9 +15,9 @@
             v-for="item in restaurants"
             :key="item.id"
           >
-            <router-link :to="`/mains/detail/${item.id}`" :title="item.title"
+            <p class="hover" @click="toDetails(item.id)" :title="item.title"
               >{{ item.title }}
-            </router-link>
+            </p>
           </li>
         </ul>
         <div class="search-triangle"></div>
@@ -80,6 +80,16 @@ export default {
         timer = setTimeout(fn, wait);
       };
     },
+
+    toDetails(id) {
+      this.input = '';
+      this.$router.push({
+        name: 'detail',
+        params: {
+          id,
+        }
+      })
+    }
   },
 };
 </script>
@@ -87,16 +97,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .header-right {
-  -webkit-text-size-adjust: 100%;
-  --antd-wave-shadow-color: #1677ff;
-  --scroll-bar: 0;
-  -webkit-font-smoothing: antialiased;
-  font-feature-settings: "tnum", "tnum";
   color: #333;
   font: 12px/1.14 PingFangSC-Regular, \5b8b\4f53;
   font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica,
     Arial, sans-serif;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   margin: 0;
   padding: 0 1rem;
   position: fixed;
@@ -114,7 +118,9 @@ export default {
 .control {
   margin-right: 10px;
 }
-
+.hover:hover {
+  color: lightblue;
+}
 .SearchInput {
   position: relative;
   display: inline-block;

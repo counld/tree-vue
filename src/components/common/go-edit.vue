@@ -28,7 +28,7 @@ export default {
   height: 25px;
   border-radius: 50%;
   background-color: #3e73a0;
-  right: 30px;
+  right: 40px;
   top: 80px;
 }
 .menu-details:hover {

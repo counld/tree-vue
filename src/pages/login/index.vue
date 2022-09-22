@@ -21,7 +21,7 @@
               >提交</el-button
             >
             <el-button @click="resetForm('ruleForm')">重置</el-button>
-          <el-button type="info" plain size="mini" @click="submitRegister('ruleForm')" >注册</el-button>
+          <el-button v-if="isRegisterOpem" type="info" plain size="mini" @click="submitRegister('ruleForm')" >注册</el-button>
         </el-form-item>
         </template>
       </my-form>
@@ -44,6 +44,7 @@ export default {
         username: "",
       },
       formName: null,
+      isRegisterOpem: false,
     };
   },
   methods: {
@@ -87,6 +88,13 @@ export default {
       this.formName.validate.resetFields();
     },
   },
+  watch: {
+    'ruleForm.username': function hanleChangeClick(oldValue) {
+      if(oldValue == '@register') { //开放register功能
+        this.isRegisterOpem = true;
+      }
+    },
+  }
 };
 </script>
 

@@ -11,7 +11,7 @@
           <el-card class="box-card">
             <div v-for="item in articleList" :key="item.id" class="text item under-line">
               <h3 class="padding-5 alone-ellipsis">
-                <a :href="`/mains/detail/${item.id}`" @click="addHits(item.id)">{{ item.title }}</a>
+                <a @click="addHits(item.id)">{{ item.title }}</a>
                 <i class="el-reset">HOT</i>
               </h3>
               <p class="ellipsis" :title="item.description" v-if="item.description">
@@ -54,9 +54,6 @@ export default {
     this.getHotsArticle(2) 
   },
   methods: {
-    handleSend(editor) {
-      this.editor = editor;
-    },
     getHotsArticle() { 
       queryApiArticleHots
         .call(this)
@@ -67,6 +64,13 @@ export default {
         })
     },
     addHits(id) {
+      //使用a 标签进行跳转，处出现刷新页面的情况;
+      this.$router.push({
+        name: 'detail',
+        params: {
+          id,
+        }
+      })
       queryApiArticleHits.call(this, id);
     },
     handleUpload(url,res) {

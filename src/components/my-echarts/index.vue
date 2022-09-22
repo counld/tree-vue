@@ -1,5 +1,4 @@
 <template>
-  <div class="container">
     <!-- 合同类型 -->
     <div class="echarts">
       <div v-if="pieData.length == 0">
@@ -14,7 +13,6 @@
         <div class="pie" ref="pie" style="width: 100%; height: 350px"></div>
       </template>
     </div>
-  </div>
 </template>
 <script>
 import { addDay } from "@/utils/format.js";
@@ -144,7 +142,4 @@ export default {
 };
 </script>
 <style scoped>
-.container {
-  height: 100vh;
-}
 </style>

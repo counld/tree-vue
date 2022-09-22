@@ -68,6 +68,11 @@ h3 {
   padding: 4px;
 }
 
+.time {
+  font-size: 14px;
+  color: #999;
+}
+
 .riddle-head {
   width: 100%;
   height: 100vh;

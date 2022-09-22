@@ -73,6 +73,7 @@ export default {
         category: this.id,
         description: this.description,
         tag: this.tag,
+        creatTime: new Date().toLocaleString(),
       };
       if (
         this.isEmpty(title) &&

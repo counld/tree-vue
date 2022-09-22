@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="home-top flex container">
-      <!-- <aside-componet></aside-componet> -->
+      <aside-componet></aside-componet>
       <main>
         <div class="warp-carousel">
-          <!-- <my-carousel :swiperList="swiperList" /> -->
+          <my-carousel :swiperList="swiperList" />
         </div>
         <!--I'm a comment.-->
         <article class="flex-wrap">
@@ -18,12 +18,12 @@
 
 <script>
 import { queryApiSwipper } from "@/utils/queryApi";
-// import asideComponet from "@/components/aside/aside.vue";
+import asideComponet from "@/components/aside/aside.vue";
 import myCard from "@/components/my-card";
-// import myCarousel from "@/components/my-carousel";
+import myCarousel from "@/components/my-carousel";
 import myFooter from "@/components/common/my-footer.vue";
 export default {
-  components: { myCard, myFooter },
+  components: { asideComponet, myCard, myFooter, myCarousel },
   name: "home",
   comments: true,
   data() {

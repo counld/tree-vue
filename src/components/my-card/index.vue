@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="onClick">
     <template v-if="articelList">
       <div
         v-loading="loading"
@@ -11,7 +11,7 @@
       <el-card body-style="padding: '0px'" shadow="hover">
         <div style="minwidth: 200px">
           <h1 class="theme-color">{{ item.title }}</h1>
-          <h5 v-if="item.description" class="ellipsis">
+          <h5 class="ellipsis">
             {{ item.description }}
           </h5>
           <div class="bottom-style clearfix">
@@ -19,8 +19,8 @@
               size="small"
               :src="item.thumbnail ? item.thumbnail : '/image/xuewu.png'"
             ></el-avatar>
-            <el-tag type="success" class="tag-title">{{ item.tag }}</el-tag>
-            <span class="time">{{ new Date(item.time).toLocaleString() }}</span>
+            <el-tag type="success">{{ item.tag }}</el-tag>
+            <span class="time">{{ new Date(item.time).toLocaleString()}}</span>
             <div class="read">
               阅读<span class="read-hits">{{ item.hits }}</span
               >次
@@ -124,9 +124,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .time {
-  font-size: 13px;
+  font-size: 14px;
   color: #999;
 }
 h1,
@@ -134,6 +134,9 @@ h2 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+h5 {
+  text-indent: 2em;
 }
 .bottom-style {
   display: flex;
@@ -148,11 +151,6 @@ h2 {
   float: right;
 }
 
-.tag-title {
-  height: inherit;
-  line-height: inherit;
-  margin-right: 0px;
-}
 .ellipsis {
   -webkit-line-clamp: 3;
 }
@@ -168,14 +166,16 @@ h2 {
   font-size: 14px;
   color: #409eff;
 }
-:deep(.el-tag) {
-  margin-left: 20px;
+:deep(.el-tag--success) {
+  line-height: inherit;
+  height: inherit;
+  padding: 4px;
 }
 :deep(.el-avatar) {
   width: 25px;
   height: 25px;
   line-height: 25px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 .empty-200 {
   justify-content: center;

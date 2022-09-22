@@ -51,10 +51,10 @@ const avatar = multer({
     //设置文件存储位置
     destination: function (req, file, cb) {
       // 判断月份，获取到的月份范围(0-11)所有在这需要将月份加一才能获取到当前月份，padStart是判断这个字符串是否大于2位，不大于在前面拼接一个0
-      console.log(file,'destination');
       let dir = path.resolve(__dirname + '/../public/avatar/');
       //设置图片存储位置
       // 上传文件路径
+      console.log(file,'destination',__dirname,'file',dir);
 
       //判断目录是否存在，没有则创建
       if (!fs.existsSync(dir)) {
@@ -166,7 +166,6 @@ app.post('/upload/avatar', avatar.single('file'), (req, res, next) => {
     // file.filename ==> 上传后的文件名
     req.uploadUrl = '/avatar/' + file.filename + extname
   }
-  // console.log(req, req.file)
   if (req.uploadUrl) {
     res.send({
       "errno": 0, // 注意：值是数字，不能是字符串

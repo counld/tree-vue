@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* 处理ios下的按钮出现蓝色边框 */
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-appearance:none;
+}
 .theme-color {
   color: #3E73A0;
 }

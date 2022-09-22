@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Home from '../pages/mains/home';
 
 Vue.use(Router);
-
+// vue2项目中使用keep-alive,可在路由跳回该组件时展示跳走前的数据形式，滚动条等。
 const routes = [
 	{
 		path: '/',
@@ -24,7 +24,8 @@ const routes = [
 				name: 'home',
 				component: Home,
 				meta: {
-					title: 'xuewu主页'
+					title: 'xuewu主页',
+					keepAlive: true,
 				}
 			},
 			{
@@ -32,7 +33,8 @@ const routes = [
 				name: 'riddle',
 				component: () => import('../pages/mains/riddle'),
 				meta: {
-					title: '猜谜语详情'
+					title: '猜谜语详情',
+					keepAlive: true,
 				}
 			},
 			{
@@ -40,7 +42,7 @@ const routes = [
 				name: 'detail',
 				component: () => import('../pages/mains/details'),
 				meta: {
-					title: '文章详情页'
+					title: '文章详情页',
 				}
 			},
 			{
@@ -48,7 +50,8 @@ const routes = [
 				name: 'study',
 				component: () => import('../pages/mains/study'),
 				meta: {
-					title: '创作故事'
+					title: '创作故事',
+					keepAlive: true,
 				}
 			},
 			{
@@ -56,7 +59,8 @@ const routes = [
 				name: 'painting',
 				component: () => import('../pages/mains/painting'),
 				meta: {
-					title: '在线请求话题'
+					title: '在线请求话题',
+					keepAlive: true,
 				}
 			},
 			{
@@ -64,7 +68,8 @@ const routes = [
 				name: 'person/show',
 				component: () => import('../pages/mains/show'),
 				meta: {
-					title: '展示个人作品'
+					title: '展示个人作品',
+					keepAlive: true,
 				}
 			},
 		]
@@ -82,7 +87,7 @@ const routes = [
 		name: 'register',
 		component: () => import('../pages/register'),
 		meta: {
-			title: '注册页'
+			title: '注册页',
 		}
 	},
 	{

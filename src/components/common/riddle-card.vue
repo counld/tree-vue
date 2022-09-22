@@ -31,7 +31,7 @@
       >
         <div style="text-align: center">
           <p class="text-indent">
-            {{title}}
+            {{title}} <span class="margin-left-10 hover-red" style="color: red;" v-if="isRiddleTopic" @click="goTipic">去出题</span>
           </p>
           <div class="correct">
             {{correctObj.title}} <span class="answer">{{ correctObj.answer }}</span>
@@ -72,6 +72,7 @@ export default {
         title: '正确的答案',
         answer: this.answer,
       }, //正确的答案
+      isRiddleTopic: false,
     };
   },
   mounted() {
@@ -134,6 +135,7 @@ export default {
             title: '话题不会丢失:',
             answer: '我不能让这话题从我这断联的---5s关闭',
           } 
+          this.isRiddleTopic = true;
           setTimeout(() => {
             this.centerDialogVisible=false;
           },5000)
@@ -152,6 +154,15 @@ export default {
     handleNext() {
       console.log('handleNext')
       this.nextRaddle();
+    },
+
+    goTipic() {
+      this.$router.push({
+        name: "study",
+        params: {
+          tag: "猜谜语",
+        },
+      });
     }
   },
 };
@@ -167,7 +178,8 @@ export default {
   color: #3e73a0;
   padding: 4px;
 }
-.deep-theme {
+.deep-theme,details {
+  outline: none;
   color: #218ae6;
 }
 .raddle-temp {
@@ -175,7 +187,7 @@ export default {
 }
 :deep(.el-form-item) {
   text-align: left;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   margin-left: 25%;
 }
 :deep(.el-form-item__label) {

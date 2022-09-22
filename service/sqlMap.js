@@ -11,8 +11,9 @@ const sqlMap = {
   addRiddle: 'INSERT INTO riddle SET ?', //添加猜谜语项
   nextRiddle: 'SELECT * FROM riddle WHERE id > ? ORDER BY id ASC LIMIT 1',//下一个谜底
   riddleList: 'SELECT * FROM riddle LIMIT ?',//获取猜谜语项
+  newestRiddleList: 'SELECT * FROM riddle ORDER BY TIME DESC LIMIT ?',//获取最新猜谜语项
   appointArticle: 'SELECT a.id,a.title,a.content,a.`time`,a.hits,c.`avatar`,c.`name`,a.`thumbnail`,a.`hot` FROM article a,users c WHERE a.`category_id` = c.`id` AND a.id = ?',
-  detail: 'SELECT title,content,`time`,hits, description,thumbnail,tag FROM article WHERE id = ? ORDER BY TIME DESC',//获取改id下的文章,
+  detail: 'SELECT title,content,`time`,hits, description,thumbnail,tag,creatTime FROM article WHERE id = ? ORDER BY TIME DESC',//获取改id下的文章,
   addHits: 'UPDATE article SET hits = hits + 1 WHERE id = ?',
   searchList: 'SELECT id,title,content,`time`,thumbnail,description FROM article WHERE title LIKE ? ORDER BY TIME DESC',//搜索文章列表
   prevPage: 'SELECT id,title,tag FROM article WHERE id < ? ORDER BY id DESC LIMIT 1'//上一篇文章

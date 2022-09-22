@@ -106,6 +106,9 @@
 .absolute {
 	position: absolute;
 }
+.hover-red:hover {
+	color: #ff0000;
+}
 @media screen and (max-width: 640px) {
 	.min-none {
 		display: none;

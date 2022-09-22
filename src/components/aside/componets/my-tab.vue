@@ -22,17 +22,17 @@
 	</div>
 </template>
 <script>
-  import { queryApiRiddleList } from "@/utils/queryApi";
+  import { queryApiNewestRiddleList } from "@/utils/queryApi";
   export default {
     data() {
       return {
-        activeName: 'first',
+        activeName: 'second',
         raddleList: [],
         errorList: [],
       };
     },
     mounted() {
-      queryApiRiddleList.call(this,3).then(res => {
+      queryApiNewestRiddleList.call(this,3).then(res => {
         this.raddleList = res.data
       });
     },
@@ -71,6 +71,9 @@ h4 {
   font-size: 12px;
   color: #e78f8f;
   margin-left: 10px;
+}
+.question:hover {
+  color: red;
 }
 p {
   font-size: 14px;

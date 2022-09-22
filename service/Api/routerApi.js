@@ -32,6 +32,7 @@ router.post('/register',Api.PostRegister('addUser'));
 //获得猜谜语的权限
 router.post('/addRiddle',Api.PostAddRiddle('addRiddle'));
 router.get('/riddleList',Api.GetRiddleList('riddleList'));
+router.get('/newestRiddleList',Api.GetNewestRiddleList('newestRiddleList'));
 router.get('/nextRiddle',Api.GetNextRiddle('nextRiddle'));
 
 module.exports = router;
