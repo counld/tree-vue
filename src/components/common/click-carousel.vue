@@ -77,7 +77,6 @@ export default {
       }else {
         this.isAction = this.length -1;
       }
-      console.log('handleLeft','see',this.length,this.isAction);
     },
     handleRight() {
       this.changeDistance();

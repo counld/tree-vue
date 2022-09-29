@@ -1,12 +1,14 @@
 * {
   margin: 0;
   padding: 0;
+  touch-action: pan-y; 
   box-sizing: border-box;
 }
-/* 处理ios下的按钮出现蓝色边框 */
+/* 处理ios下的按钮出现蓝色边框 touch-action处理*/
 * {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent!important;
   -webkit-appearance:none;
+  --w-e-textarea-handler-bg-color: none;
 }
 .theme-color {
   color: #3E73A0;

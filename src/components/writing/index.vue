@@ -1,6 +1,6 @@
 <template>
   <div class="wraper">
-    <div class="select-list" v-once>
+    <div class="select-list">
       <el-input
         class="select-title"
         placeholder="请辞一个标题"
@@ -69,7 +69,6 @@ export default {
     if(!this.$route.params.tag) return;
     this.tag = this.$route.params.tag;
     this.$refs.select.value = this.tag;
-    // this.value = this.tag;
   },
   methods: {
     handleSend(editor) {

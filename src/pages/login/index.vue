@@ -59,6 +59,8 @@ export default {
               if (receiveAuth) {
                 localStorage.setItem("token", TOKEN_KEY);
                 localStorage.setItem("username", receiveAuth.username);
+                localStorage.setItem("nickname", receiveAuth.username);
+                localStorage.setItem("avatar", receiveAuth.avatar);
                 this.$router.push({
                   name: "home",
                   params: { username: receiveAuth.username },
@@ -66,7 +68,7 @@ export default {
               } else {
                 this.$message({
                   showClose: true,
-                  message: "请确认你的输入的信息",
+                  message: "请确认你的输入的用户信息！",
                   type: "error",
                 });
               }

@@ -14,7 +14,7 @@
             {{ item.description }}
           </details>
           <div class="reset-style" v-html="item.content"></div>
-          <div class="flex justify-content padding-10 align-center">
+          <div class="flex justify-content align-center">
             <span>标签: <el-tag>{{item.tag.trim()}}</el-tag></span>
             <div class="read">浏览<span class="read-hits">{{ item.hits }}</span>次</div>
             <span class="time">创作时间: {{ item.creatTime}}</span>
@@ -91,13 +91,12 @@ h1 {
   margin-top: -80px;
 }
 .detail-content {
-  padding: 115px 40px 0;
+  padding: 115px 40px 25px;
   min-height: 100vh;
 }
 .reset-style {
   font-family: 宋体;
   font-size: 10.5pt;
-  padding: 10px;
   line-height: 150%;
   word-wrap: normal;
   word-break: normal;
@@ -141,8 +140,8 @@ summary::-webkit-details-marker {
     width: 96%;
   }
   .detail-content {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 0;
+    padding-left: 0;
   }
   .el-card {
     padding: 15px 0;

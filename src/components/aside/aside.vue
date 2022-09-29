@@ -2,7 +2,7 @@
   <aside>
     <my-tab />
     <div class="aside-bottom">
-      <riddle-card :id="asideId" @changeId="changeId"/>
+      <riddle-card :id="asideId" :asideCard="true" @changeId="changeId"/>
     </div>
   </aside>
 </template>
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      asideId: 0,
+      asideId: 1,
     };
   },
   mounted() {

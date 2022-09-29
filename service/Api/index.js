@@ -104,6 +104,14 @@ const GetNewestRiddleList = (sql) => {
 		ServerConn(sql,nums, res);
 	}
 }
+
+//该id下的谜底
+const GetriddleIdData = (sql) => {
+	return (req, res) => {
+		const id = Number(req.query.id);
+		ServerConn(sql, id, res);
+	}
+}
 //下一个谜底
 const GetNextRiddle = (sql) => {
 	return (req, res) => {
@@ -127,5 +135,6 @@ module.exports = {
 	PostAddRiddle,
 	GetRiddleList,
 	GetNewestRiddleList,
+	GetriddleIdData,
 	GetNextRiddle,
 }

@@ -46,6 +46,7 @@ export default {
       this.formName.validate((valid) => {
         if (valid) {
           const {  username, password } = this.ruleForm;
+          const avatar = "https://img2.baidu.com/it/u=390829681,3002818272&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
           queryCheckUser.call(this,username).then((res) => {
             if(res.data.length) {
               this.$message({
@@ -55,12 +56,12 @@ export default {
                 });
                 return;
               }
-              PostUserRegister.call(this, { register: {username, password} })
+              PostUserRegister.call(this, { register: {username, password, avatar} })
                 .then((res) => {
                   const { insertId } = res.data;
                   if (insertId) {
                     this.$router.push({
-                      name: "home",
+                      name: "login",
                     });
                     this.$message({
                       showClose: true,

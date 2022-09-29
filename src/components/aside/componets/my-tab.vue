@@ -31,7 +31,7 @@
         errorList: [],
       };
     },
-    mounted() {
+    created() {
       queryApiNewestRiddleList.call(this,3).then(res => {
         this.raddleList = res.data
       });

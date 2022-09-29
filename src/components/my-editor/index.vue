@@ -40,7 +40,7 @@ export default {
         placeholder: "请输入内容...",
         MENU_CONF: {
           uploadImage: {
-            server: API_URL + "/upload/image", // 上传服务器地址 --> 必填，否则上传图片会报错。
+            server: API_URL + "/api/upload/image", // 上传服务器地址 --> 必填，否则上传图片会报错。
             // form-data fieldName ，默认值 'wangeditor-uploaded-image'
             fieldName: "editormd-image-file",
 

@@ -2,44 +2,66 @@
   <div class="relative">
     <div class="ling-games">
       <el-card>
-        <div class="flex">
-          <el-button class="small-show" @click="handleShow">
-          去聊天
-        </el-button>
-        <el-button>
-          <a href="http://xuewuboy.club:8000/onlinegame/" target="_blank" title="2048">2048</a>
-        </el-button>
-        <el-button>
-          <a href="http://xuewuboy.club:8000/luckdraw/" target="_blank" title="抽奖">抽奖</a>
-        </el-button>
+        <div class="flex align-center">
+          <el-button @click="handleShow"> 去聊天 </el-button>
+          <el-tag type="info" class="topicTag"
+            >@话题:
+            <el-input
+              v-model="topicInput"
+              placeholder="根据主持人所画的图形,描述他的最终形态"
+            ></el-input
+          ></el-tag>
+        </div>
+        <div v-if="answerSuccess.type" style="text-align: center; padding: 6px; color: red">
+          <p class="alone-ellipsis">
+            {{ answerSuccess.message
+            }}<el-button v-if="holder === nickname" @click="handleReset">重新来过</el-button>
+          </p>
         </div>
       </el-card>
+      <div class="painting-panel">
+        <!-- 布局：头部 -->
+        <app-header />
+        <!-- 布局：主体 -->
+        <el-container>
+          <!-- 左边 -->
+          <app-side-panel />
+          <!-- 右边 -->
+          <app-stage @handleMessage="handleShow" />
+        </el-container>
+      </div>
     </div>
     <!-- 添加聊天框 -->
-    <div :class="['fixed', 'flex', message?'message':'']">
+    <div
+      v-if="!isShow"
+      :class="['fixed', 'flex', 'hide', message ? 'message' : '']"
+    >
       <div class="padding-auto" id="scroll">
         <div class="wh">
           <ul>
-            <div v-for="(item, index) in infoList" :key="index">
+            <div v-for="(item, index) in MessageInfoList" :key="index">
               <li
+                v-if="item.message"
                 :class="[
-                  item.name === identitySelf ? 'text-right' : 'text-left',
+                  item.username === identitySelf ? 'text-right' : 'text-left',
                 ]"
               >
                 <el-avatar :src="item.avatar" shape="square"></el-avatar>
                 <p
-                  :class="[
-                    item.name === identitySelf
+                  :class="[ 'text-topic',
+                    item.username === identitySelf
                       ? 'margin-right-10'
                       : 'margin-left-10',
-                    item.name === identitySelf ? 'text-color' : 'text-white',
+                    item.username === identitySelf
+                      ? 'text-color'
+                      : 'text-white',
                   ]"
                 >
                   <span>{{ item.message }}</span>
                 </p>
               </li>
-              <div v-if="beforeTime" class="font-size-14 text-center">
-                <span>{{ item.time }}</span>
+              <div v-else class="font-size-14 text-center">
+                <span>{{ item.sysInfo }}</span>
               </div>
             </div>
           </ul>
@@ -60,103 +82,40 @@
   </div>
 </template>
 <script>
+import appHeader from "./components/app-header";
+import appStage from "./components/app-stage";
+import appSidePanel from "./components/app-side-panel";
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "painting",
+  components: {
+    appHeader,
+    appStage,
+    appSidePanel,
+  },
   data() {
     return {
       input: "",
       message: false,
       identitySelf: localStorage.getItem("username") || "guest",
-      infoList: [
-        {
-          name: "李明",
-          id: 123456432,
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          message:
-            "iuaerldvuileajbd,sn aewfuildsj, avIAL,iaiblds ialvds, lab,dsj  来不得劲 爱尔兰大V就是, 想爱了女大三, 你阿内,  j,UI垃圾,打砸日料店",
-          time: "2022/9/17 11:39:44",
-        },
-        {
-          name: "李明",
-          id: 123456432,
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          message:
-            "iuaerldvuileajbd,sn aewfuildsj, avIAL,iaiblds ialvds, lab,dsj  来不得劲 爱尔兰大V就是, 想爱了女大三, 你阿内,  j,UI垃圾,打砸日料店",
-          time: "2022/9/17 11:39:44",
-        },
-        {
-          name: "李明",
-          id: 123456432,
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          message:
-            "iuaerldvuileajbd,sn aewfuildsj, avIAL,iaiblds ialvds, lab,dsj  来不得劲 爱尔兰大V就是, 想爱了女大三, 你阿内,  j,UI垃圾,打砸日料店",
-          time: "2022/9/17 11:39:44",
-        },
-        {
-          name: "小丽",
-          id: 12345232332,
-          avatar:
-            "https://img2.baidu.com/it/u=3062813899,1142128231&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1663520400&t=9526ff0a99fb9956a8bd91bf14b45e2e",
-          message: "你好，日料店",
-          time: new Date().toLocaleString(),
-        },
-        {
-          name: "guest",
-          id: 12323232332,
-          avatar:
-            "https://img2.baidu.com/it/u=390829681,3002818272&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-          message:
-            "dsj, avIAL,iaiblds ialvds, lab,dsj  来不得劲 爱尔兰大V就是, 想爱了女大三, 你阿内,  j,UI垃圾,打砸日料店",
-          time: new Date().toLocaleString(),
-        },
-        {
-          name: "小丽",
-          id: 12345232332,
-          avatar:
-            "https://img2.baidu.com/it/u=3062813899,1142128231&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1663520400&t=9526ff0a99fb9956a8bd91bf14b45e2e",
-          message: "阿海运挨饿万不打卡艾尔我VN的, 一安居客的， 爱女 ",
-          time: new Date().toLocaleString(),
-        },
-        {
-          name: "李明",
-          id: 123456432,
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          message:
-            "iuaerldvuileajbd,sn aewfuildsj, avIAL,iaiblds ialvds, lab,dsj  来不得劲 爱尔兰大V就是, 想爱了女大三, 你阿内,  j,UI垃圾,打砸日料店",
-          time: "2022/9/17 11:39:44",
-        },
-        {
-          name: "guest",
-          id: 12323232332,
-          avatar:
-            "https://img2.baidu.com/it/u=390829681,3002818272&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-          message:
-            "dsj, avIAL,iaiblds ialvds, lab,dsj  来不得劲 爱尔兰大V就是, 想爱了女大三, 你阿内,  j,UI垃圾,打砸日料店",
-          time: new Date().toLocaleString(),
-        },
-      ],
-      isAction: false, //自己发送那么就是在右侧;
+      avatar: localStorage.getItem("avatar"),
       beforeTime: true,
+      isShow: false,
+      topicInput: "",
     };
   },
+  created() {},
   //updated生命周期钩子函数可以让弹窗在刚打开时，滚动条就在绑定id的盒子的最底部
-  updated() {},
   methods: {
     handSend() {
       const messageInfo = {
-        name: this.identitySelf,
-        id: new Date(),
+        username: this.identitySelf,
         // 这里的头像要连表查询出来，不能这里给
-        avatar:
-          "https://img2.baidu.com/it/u=390829681,3002818272&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+        avatar: this.avatar,
         message: this.input,
       };
       if (this.input == "") return;
-      this.infoList.push(messageInfo);
+      this.$store.dispatch("userDiscussInfo", messageInfo);
       this.input = "";
       this.scrollToBottom();
     },
@@ -164,33 +123,62 @@ export default {
       setTimeout(() => {
         const div = document.getElementById("scroll");
         div && (div.scrollTop = div.scrollHeight);
-      }, 0);
+      }, 10);
     },
 
-    handleShow() {
-      this.message = !this.message;
+    handleShow(message) {
+      if (!message) {
+        this.message = message;
+      } else {
+        this.message = !this.message;
+      }
+    },
+    handleReset() {
+      this.$store.dispatch('resetGame');
     }
+  },
+  computed: {
+    ...mapState(["MessageInfoList", "answerSuccess", "holder", "nickname"]),
+    ...mapGetters(["isGameStarted"]),
   },
 };
 </script>
 
 <style scoped>
-  .ling-games {
-    float: left;
-    min-height: calc(100vh - 70px);
-    padding-top: 70px;
-    padding: 10px;
-    text-align: center;
-  }
-  .small-show {
-    display: none;
-  }
+.ling-games {
+  min-height: calc(100vh - 70px);
+  min-width: 375px;
+  padding: 10px;
+}
+.painting-panel {
+  position: relative;
+  z-index: 9;
+}
+:deep(.el-card__body) {
+  padding: 4px;
+}
+:deep(.el-input__inner) {
+  height: 30px;
+  padding-right: 0;
+  line-height: inherit;
+}
+.topicTag {
+  width: 100%;
+  padding: 0;
+  margin-left: 10px;
+}
+:deep(.el-button--default) {
+  padding: 8px 8px;
+}
+.app-header {
+  display: flex;
+}
 .fixed {
   position: fixed;
   right: 0;
   bottom: 30px;
   width: 400px;
-  height: 500px;
+  height: 450px;
   padding-top: 8px;
   flex-direction: column;
   background: #999;
@@ -216,6 +204,7 @@ export default {
 }
 ul {
   /* min-height: 100vh; */
+  margin-bottom: 6px;
 }
 li {
   margin: 8px 0;
@@ -241,7 +230,7 @@ li {
 .el-avatar {
   align-self: flex-start;
 }
-p {
+.text-topic {
   max-width: 70%;
   font-family: "宋体";
   font-weight: 700;
@@ -291,30 +280,45 @@ p:hover {
 :deep(.el-textarea) {
   margin-right: 10px;
 }
-
+.message {
+  z-index: 99;
+}
+@media screen and (max-width: 1200px) {
+  .hide {
+    visibility: hidden;
+  }
+  .message {
+    position: fixed;
+    z-index: 99;
+    bottom: 2px;
+    visibility: visible;
+  }
+}
 @media screen and (max-width: 640px) {
   .fixed {
     position: relative;
     margin-top: 2rem;
     width: 100%;
-    height: 540px;
+    height: 280px;
     bottom: auto;
   }
   .margin-top-70 {
     overflow: hidden;
   }
-  p {
-    max-width: 65%;
-  }
   :deep(.el-card__body) {
     padding: 4px;
   }
-  .small-show {
-    display: block;
+  .text-topic {
+    max-width: 60%;
   }
   .message {
     position: fixed;
+    z-index: 99;
     bottom: 2px;
+    visibility: visible;
+  }
+  :deep(.el-textarea__inner) {
+    padding: 0;
   }
 }
 </style>

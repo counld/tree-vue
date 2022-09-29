@@ -21,7 +21,7 @@ export default {
   props: ['imageUrl'],
   data() {
     return {
-      baseUrl: API_URL + '/upload/avatar'
+      baseUrl: API_URL + '/api/upload/avatar'
     };
   },
   methods: {

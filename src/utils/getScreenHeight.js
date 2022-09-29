@@ -25,3 +25,19 @@ const _getClientHeight = () => {
 
   return clientHeight
 }
+
+// 获取视口宽度
+export const _getClientWidth = () => {
+  const dClientWidth = document.documentElement.clientWidth
+  const bodyClientWidth = document.body.clientWidth
+  let clientWidth = 0
+
+  if (bodyClientWidth && dClientWidth) {
+    clientWidth = bodyClientWidth < dClientWidth ? bodyClientWidth : dClientWidth
+  } else {
+    clientWidth = bodyClientWidth > dClientWidth ? bodyClientWidth : dClientWidth
+  }
+
+  return clientWidth
+}
+

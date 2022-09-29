@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="padding-10">
+    <div class="study-cantainer">
     <h3 style="textalign: center; color: purple; padding: 0 0 5px">
       如果生命在来一次
     </h3>
@@ -14,10 +14,10 @@
                 <a @click="addHits(item.id)">{{ item.title }}</a>
                 <i class="el-reset">HOT</i>
               </h3>
-              <p class="ellipsis" :title="item.description" v-if="item.description">
+              <p class="ellipsis description" :title="item.description" v-if="item.description">
                 {{ item.description }}
               </p>
-              <p v-else class="ellipsis">没有人事先了解自己到底有多大的力量，直到他试过以后才知道。这启发了我， 培根在不经意间这样说过，阅读使人充实，会谈使人敏捷，写作使人精确...</p>
+              <p v-else class="ellipsis description">没有人事先了解自己到底有多大的力量，直到他试过以后才知道。这启发了我， 培根在不经意间这样说过，阅读使人充实，会谈使人敏捷，写作使人精确...</p>
               <p class="flex align-center justify-content">
                 <el-tag>{{item.tag}}</el-tag>
                 <span>{{new Date(item.time).toLocaleString()}}</span>
@@ -88,11 +88,12 @@ export default {
 </script>
 
 <style scoped>
-.padding-10 {
+.study-cantainer {
   padding: 10px 40px;
   min-height: 100vh;
 }
 nav {
+  border-radius: 4px;
   padding: 0 8px;
   flex-basis: 350px;
   background-color: antiquewhite;
@@ -109,6 +110,9 @@ nav {
   top: 10px;
   font-family: monospace;
   font-size: 14px;
+}
+.description {
+  margin-bottom: 8px;
 }
 a {
   text-decoration-line: inherit;
@@ -127,7 +131,7 @@ a:hover {
   nav {
     display: none;
   }
-  .padding-10 {
+  .study-cantainer {
     padding: 10px 20px;
   }
 }

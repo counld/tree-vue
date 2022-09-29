@@ -32,7 +32,7 @@ export default {
       riddleBody: "riddle-body",
     };
   },
-  mounted() {
+  created() {
     this.riddleId = this.$route.params.riddleId;
   },
 

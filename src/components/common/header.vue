@@ -120,7 +120,7 @@ header {
 .limit-width {
   width: 50px;
   height: 50px;
-  margin-right: 10px;
+  margin: 0 20px;
 }
 @media (max-width: 640px) {
 	.short-hight {

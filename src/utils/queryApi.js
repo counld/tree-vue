@@ -62,6 +62,10 @@ export function queryApiRiddleList(nums) {
 export function queryApiNewestRiddleList(nums) {
 	return commonApi.call(this,'get', '/api/newestRiddleList', {nums});
 }
+//获取该id下的猜谜语
+export function queryApiriddleIdData(id) {
+	return commonApi.call(this,'get', '/api/riddleIdData', {id});
+}
 //获取下一个猜谜语
 export function queryApiNextRiddle(id) {
 	return commonApi.call(this,'get', '/api/nextRiddle', {id});

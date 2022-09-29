@@ -19,6 +19,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('form')">确定</el-button>
+          <span class="margin-left-10 hover-red" v-if="isRiddleTopic" @click="goTipic">去出题</span>
         </el-form-item>
       </el-form>
       <el-dialog
@@ -31,7 +32,7 @@
       >
         <div style="text-align: center">
           <p class="text-indent">
-            {{title}} <span class="margin-left-10 hover-red" style="color: red;" v-if="isRiddleTopic" @click="goTipic">去出题</span>
+            {{title}}
           </p>
           <div class="correct">
             {{correctObj.title}} <span class="answer">{{ correctObj.answer }}</span>
@@ -51,11 +52,11 @@
   </div>
 </template>
 <script>
-import { queryApiRiddleList, queryApiNextRiddle } from "@/utils/queryApi";
+import { queryApiRiddleList, queryApiNextRiddle,queryApiriddleIdData } from "@/utils/queryApi";
 import { shuffle } from "@/utils/format.js";
 export default {
   name: "riddle-card",
-  props: ['id','riddleHead','riddleBody'],
+  props: ['id','riddleHead','asideCard','riddleBody'],
   data() {
     return {
       raddleList: [], //初始数据
@@ -67,6 +68,7 @@ export default {
       form: {
         type: [],
       },
+      selfId: 0,
       title: '',//正确title
       correctObj: {
         title: '正确的答案',
@@ -76,14 +78,11 @@ export default {
     };
   },
   mounted() {
-    queryApiRiddleList
-      .call(this, 1)
-      .then((res) => {
-        this.getAsncData(res);
-      })
-      .catch((err) => {
-        console.log(err.mes || "请求出错了");
-      });
+    if(this.asideCard && this.id == 1) {
+      this.checkFunction(queryApiRiddleList)
+    }else {
+      this.checkFunction(queryApiriddleIdData)
+    }
   },
   methods: {
     onSubmit() {
@@ -118,8 +117,8 @@ export default {
     getAsncData(res) {
       this.raddleList = res.data;
       this.answer = res.data[0].answer;
-      const id = res.data[0].id;
-      this.$emit('changeId',id);
+       this.selfId = res.data[0].id;
+      this.$emit('changeId',this.selfId);
       this.description = res.data[0].description;
       const errorlist = res.data[0].errorlist.split(",").concat(this.answer);
       this.refreshlist = shuffle(errorlist); //打乱函数
@@ -127,21 +126,21 @@ export default {
 
     nextRaddle() {
       queryApiNextRiddle
-      .call(this, this.id)
+      .call(this, this.selfId)
       .then((res) => {
+        this.form.type = []; // 置空,不然下一题还是上一个答案;
         if(!res.data.length) {
           this.title = '题库已经答题完了,你可以自己去《手札区》创作谜底疑问去啦!----选择选谜语';
           this.correctObj = {
-            title: '话题不会丢失:',
-            answer: '我不能让这话题从我这断联的---5s关闭',
+            title: '话题不会丢失:等会去出题吗？',
+            answer: `我不能让这话题从我这断联的---5s关闭`,
           } 
           this.isRiddleTopic = true;
           setTimeout(() => {
             this.centerDialogVisible=false;
           },5000)
           return;
-        }
-        this.form.type = []; // 置空,不然下一题还是上一个答案;
+        } 
         this.centerDialogVisible=false;
         this.getAsncData(res);
       })
@@ -151,8 +150,18 @@ export default {
       });
     },
 
+    checkFunction(func) {
+      func
+        .call(this, this.id)
+        .then((res) => {
+          this.getAsncData(res);
+        })
+        .catch((err) => {
+          console.log(err.msg || "请求出错了");
+        });
+    },
+
     handleNext() {
-      console.log('handleNext')
       this.nextRaddle();
     },
 
@@ -165,6 +174,11 @@ export default {
       });
     }
   },
+  watch: {
+      id(id) {
+        return id
+      }
+  }
 };
 </script>
 <style scoped>
@@ -197,6 +211,16 @@ export default {
 }
 .text-indent {
   text-indent: 2em;
+}
+.hover-red {
+  padding: 6px;
+  border-radius: 4px;
+  margin-left: 20px;
+  color: #fff;
+  background-color: #6ca7db;
+}
+.hover-red:hover {
+  color: #c14242;
 }
 .correct {
   color: #c14242;

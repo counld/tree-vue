@@ -36,8 +36,7 @@ export default {
 		handleExit(command) {
 			console.log(command,'command');
 			if(command === 'exit'){
-				localStorage.removeItem('token')
-				localStorage.removeItem('username')
+				localStorage.clear();
 				window.location.reload() 
 				// this.$router.go(0);
 				this.$message('click on item ' + command);

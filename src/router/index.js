@@ -34,7 +34,6 @@ const routes = [
 				component: () => import('../pages/mains/riddle'),
 				meta: {
 					title: '猜谜语详情',
-					keepAlive: true,
 				}
 			},
 			{

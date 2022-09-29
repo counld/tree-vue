@@ -6,11 +6,15 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 
-let socketIo = require('socket.io');
-let cxt = require('./services-server');
+// let cxt = require('./services-server');
 
 //静态资源配置
+// app.use(express.static('dist'));
 app.use(express.static('public'));
+
+app.get("/mains/?*",function(req, res) {
+  res.send('等会刷新！\<a href="http:\/\/localhost:8000"\ target="_self" title="点击就能看到神奇的东西">去首页\<\/a\>');
+})
 
 // 上传配置
 const upload = multer({
@@ -80,18 +84,17 @@ const avatar = multer({
 })
 
 let httpPort = 8000;
-let channelId = 1
 
-app.get('/client', function (req, res) {
-  res.send('启动成功：' + httpPort);
-  let server = require('http').createServer(app);
-  let io = socketIo(server);
-  io.on('connection', function (socket) {
-    console.log('有客户端连接');
-    cxt.createChannel(channelId++, socket)
-  });
-});
+//开启socket服务
+let server = require('http').createServer(app);
+  require('./websocket')(server);
 
+// app.get('/socket.io', function (req, res) {
+//   // 开启socket服务
+//     let server = require('http').createServer(app);
+//     require('./websocket')(server);
+
+// });
 
 // 采用设置所有均可访问的方法解决跨域问题
 app.all('*', function (req, res, next) {
@@ -116,7 +119,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', routerApi);
 
 // 上传操作
-app.post('/upload/image', upload.single("editormd-image-file"), (req, res, next) => {
+app.post('api/upload/image', upload.single("editormd-image-file"), (req, res, next) => {
   // 上传成功后的文件对象
   let { file } = req
   if (file) {
@@ -146,7 +149,7 @@ app.post('/upload/image', upload.single("editormd-image-file"), (req, res, next)
 })
 
 // 退出
-app.get('/user/logout', (req, res) => {
+app.get('api/user/logout', (req, res) => {
   // req.session.user = null
   res.send({
     data:'header',
@@ -155,7 +158,7 @@ app.get('/user/logout', (req, res) => {
   // res.render('login', { msg: '退出成功' })
 })
 // / 上传操作avatar
-app.post('/upload/avatar', avatar.single('file'), (req, res, next) => {
+app.post('api/upload/avatar', avatar.single('file'), (req, res, next) => {
   // 上传成功后的文件对象
   let { file } = req
   if (file) {
@@ -185,5 +188,5 @@ app.post('/upload/avatar', avatar.single('file'), (req, res, next) => {
 })
 
 // 监听端口
-app.listen(httpPort);
+server.listen(httpPort);
 console.log(`success listen at port:${httpPort}......`, path.resolve(__dirname + '/../static/upload/'),'io listen success !! ' + httpPort);

@@ -33,6 +33,7 @@ router.post('/register',Api.PostRegister('addUser'));
 router.post('/addRiddle',Api.PostAddRiddle('addRiddle'));
 router.get('/riddleList',Api.GetRiddleList('riddleList'));
 router.get('/newestRiddleList',Api.GetNewestRiddleList('newestRiddleList'));
+router.get('/riddleIdData',Api.GetriddleIdData('riddleIdData')); // 获取该id下的数据
 router.get('/nextRiddle',Api.GetNextRiddle('nextRiddle'));
 
 module.exports = router;

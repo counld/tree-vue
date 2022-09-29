@@ -31,6 +31,11 @@ import {
 	Loading,
 	Table,
 	TableColumn,
+	Header,
+	Container,
+	Aside,
+	Main,
+	ColorPicker,
 } from 'element-ui';
 
 const Componets = [
@@ -66,6 +71,11 @@ const Componets = [
 	Loading,
 	Table,
 	TableColumn,
+	Header,
+	Container,
+	Aside,
+	Main,
+	ColorPicker,
 ];
 
 export default Componets;

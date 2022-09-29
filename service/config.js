@@ -1,4 +1,4 @@
-// 开发环境地址
+// 开发环境地址 请求地址切换
 const hostMap = {
 	dev: 'http://localhost:8000',
 	prod: 'https://xuewuboy.club',
