@@ -33,6 +33,14 @@
             >推塔高</a
           >
         </el-button>
+        <el-button>
+          <a
+            href="http://xuewuboy.club/fancyshow/"
+            target="_blank"
+            title="fancyshow"
+            >fancyshow</a
+          >
+        </el-button>
       </div>
     </el-card>
    </div>

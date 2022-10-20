@@ -13,6 +13,7 @@ const state = {
   MessageInfoList: JSON.parse(sessionStorage.getItem('MessageInfoList')) || [], //系统消息
   lineWidth: 5,
   lineColor: '#409EFF',
+  topicInput: '',
   answerSuccess: {
     message: '',
     type: false,
@@ -66,17 +67,23 @@ const mutations = {
     state.answerSuccess = answerObj;
   },
   //重新开始
-  handleReset(state) {
-    state.holder = '';
+  handleReset(state,string) {
     state.answerSuccess = {
-      message: '',
+      message: string,
       type: false,
     };
     state.lines = [];
+  },
+  changeTipic(state, string) {
+    state.topicInput = string;
   }
 }
 
 const actions = {
+  //话题消息
+  topicdesc_message(context,topicdesc) {
+    socket.emit('topicdesc_message',topicdesc);
+  },
   // 确认用户名是否存在
   checkUserExist(context, nickname) {
     return new Promise((resolve) => {
@@ -89,7 +96,8 @@ const actions = {
   sendUserEnter(context) {
     const nickname = localStorage.getItem('nickname')
     socket.emit('enter', nickname);
-    context.commit('updateNickname', nickname)
+    context.commit('updateNickname', nickname);
+    // context.commit('handleReset','')
   },
   // 开始游戏申请
   sendStartGame(context, imageAnswer) {
@@ -109,10 +117,12 @@ const actions = {
   sendUpdateNewLine(context, lastLine) {
     socket.emit('update_line', lastLine)
   },
-
+  //发送存储的话题图
+  sendSaveLine(context, saveLine) {
+    socket.emit('update_save_line',saveLine);
+  },
   //发送回答信息
   sendAnswerGame(context, inputImageName) {
-    console.log(inputImageName, 'inputImageName');
     socket.emit('answer_game', inputImageName)
   },
 
@@ -124,11 +134,16 @@ const actions = {
   sendUserLeave(context) {
     socket.emit('leave')
     context.commit('updateNickname', '')
+    context.commit('handleReset','');
     // localStorage.removeItem('nickname')
   },
+  //重置答案
+  reset_answer(context, answer) {
+    socket.emit('reset_answer',answer);
+  },
   resetGame(context) { //从新开始
-    context.commit('handleReset');
-    socket.emit('reset_game')
+    context.commit('handleReset','');
+    socket.emit('reset_game','')
   }
 }
 

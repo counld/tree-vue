@@ -119,7 +119,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', routerApi);
 
 // 上传操作
-app.post('api/upload/image', upload.single("editormd-image-file"), (req, res, next) => {
+app.post('/api/upload/image', upload.single("editormd-image-file"), (req, res, next) => {
   // 上传成功后的文件对象
   let { file } = req
   if (file) {
@@ -149,7 +149,7 @@ app.post('api/upload/image', upload.single("editormd-image-file"), (req, res, ne
 })
 
 // 退出
-app.get('api/user/logout', (req, res) => {
+app.get('/api/user/logout', (req, res) => {
   // req.session.user = null
   res.send({
     data:'header',
@@ -158,7 +158,7 @@ app.get('api/user/logout', (req, res) => {
   // res.render('login', { msg: '退出成功' })
 })
 // / 上传操作avatar
-app.post('api/upload/avatar', avatar.single('file'), (req, res, next) => {
+app.post('/api/upload/avatar', avatar.single('file'), (req, res, next) => {
   // 上传成功后的文件对象
   let { file } = req
   if (file) {

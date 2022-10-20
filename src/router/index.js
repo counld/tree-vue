@@ -74,6 +74,14 @@ const routes = [
 		]
 	},
 	{
+		path: '/controls',
+		name: 'controls',
+		component: () => import('../pages/controls'),
+		meta: {
+			title: '管理信息'
+		}
+	},
+	{
 		path: '/login',
 		name: 'login',
 		component: () => import('../pages/login'),

@@ -33,11 +33,10 @@ export default {
       // console.log(this.imageUrl,'imageUrl',file,'ieraudn',res);
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/png";
+      const isJPG = file.type === "image/png" || file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
-
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 png 格式!");
+        this.$message.error("上传头像图片只能是 png,jpeg 格式!");
       }
       if (!isLt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");

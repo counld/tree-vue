@@ -12,8 +12,17 @@
       </template>
 			<el-empty :image-size="80" v-else></el-empty>
 		</el-tab-pane>
-    <el-tab-pane label="配置管理" name="second">
-			<el-empty :image-size="80"></el-empty>
+    <el-tab-pane label="学习网站" name="second">
+      <div class="content_title">
+        <li><a href="https://github.com/tnfe/TNT-Weekly">前端领域最新文章</a></li>
+        <li><a href="https://github.com/coffe1891/frontend-hard-mode-interview" target="_bleak">大前端范畴内的知识分享</a></li> 
+        <li><a href="https://es6.ruanyifeng.com/" target="_bleak">ES6 入门教程</a></li> 
+        <li><a href="https://github.com/coffe1891/frontend-hard-mode-interview/blob/master/1/1.2.5.md" target="_bleak">高频的“闭包”</a></li>
+        <li><a href="https://github.com/coffe1891/frontend-hard-mode-interview/blob/master/1/1.2.9.md" target="_bleak">强大的数组</a></li>
+        <li><a href="https://github.com/coffe1891/frontend-hard-mode-interview/blob/master/1/1.2.10.md" target="_bleak">正则表达式</a></li>
+        <li><a href="https://github.com/coffe1891/frontend-hard-mode-interview/blob/master/1/1.5.4.md" target="_bleak">Http和Https的区别在哪里</a></li>
+        <li><a href="https://www.zhihu.com/question/19562698/answer/89480175" target="_bleak">关于 JavaScript 的好书有哪些？</a></li>
+      </div>
 		</el-tab-pane>
     <el-tab-pane label="角色管理" name="third">
 			<el-empty :image-size="80"></el-empty>
@@ -75,6 +84,21 @@ h4 {
 .question:hover {
   color: red;
 }
+
+.content_title {
+  padding-left: 6px;
+}
+.content_title li {
+  padding: 2px;
+}
+.content_title li a {
+  color: #396f9d;
+}
+
+.content_title li a:hover {
+  color: #0986f4;
+}
+
 p {
   font-size: 14px;
 }

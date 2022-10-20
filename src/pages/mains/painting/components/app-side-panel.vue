@@ -2,7 +2,7 @@
   <div class="side-list alone-ellipsis">
     <!-- 玩家列表 -->
     <div class="panel-area">
-      <ul class="participants">
+      <ul class="participants w-e-scroll" v-if="!showJionButton && isGameStarted">
         <li v-for="item in nicknames" :key="item" class="alone-ellipsis">
           <span :title="item"
             >{{ item }}
@@ -50,7 +50,7 @@
       >
 
       <el-button
-        v-if="isGameStarted && nickname !== holder"
+        v-if="!showJionButton && isGameStarted && nickname !== holder"
         type="success"
         size="small"
         :disabled="answerSuccess.type"
@@ -60,7 +60,7 @@
       >
 
       <el-button
-        v-if="isGameStarted"
+        v-if="!showJionButton && isGameStarted && nickname !== holder"
         type="danger"
         size="small"
         icon="el-icon-switch-button"
@@ -79,8 +79,12 @@
       <el-input v-model="expectImageName" placeholder="请输入您的答案" />
 
       <span slot="footer" class="dialog-footer">
-        <el-button size="mini" @click="resultDialogVisible = false">取 消</el-button>
-        <el-button size="mini" type="primary" @click="saveDialogHandler">确 定</el-button>
+        <el-button size="mini" @click="resultDialogVisible = false"
+          >取 消</el-button
+        >
+        <el-button size="mini" type="primary" @click="saveDialogHandler"
+          >确 定</el-button
+        >
       </span>
     </el-dialog>
 
@@ -94,7 +98,9 @@
       <el-input v-model="inputImageName" placeholder="请输入您的答案" />
 
       <span slot="footer" class="dialog-footer">
-        <el-button size="mini" @click="answerDialogVisible = false">取 消</el-button>
+        <el-button size="mini" @click="answerDialogVisible = false"
+          >取 消</el-button
+        >
         <el-button size="mini" type="primary" @click="saveAnswerDialogHandler"
           >确 定</el-button
         >
@@ -115,16 +121,16 @@ export default {
       answerDialogVisible: false,
       inputImageName: "",
       showJionButton: true, //没加入前展示
+      resetAnswer: false, //期初
     };
   },
 
-  mounted() {
-    // console.log(this.nicknames,'this')
-  },
+  mounted() {},
   computed: {
-    ...mapState(["nickname", "nicknames", "holder", "answerSuccess"]),
+    ...mapState(["nickname", "nicknames", "holder", "answerSuccess",'topicInput']),
     ...mapGetters(["isGameStarted"]),
   },
+  updated() {},
 
   methods: {
     startGameHandler() {
@@ -143,6 +149,7 @@ export default {
       // 开始游戏
       // 1. 显示弹框
       this.resultDialogVisible = true;
+      this.resetAnswer = true;
       // 2. 清空输入框内容
       // this.expectImageName = '' // //重置答案显示
     },
@@ -151,6 +158,8 @@ export default {
         .then(() => {
           // 发送游戏终止申请
           this.$store.dispatch("sendStopGame");
+          // 2. 清空输入框内容
+          this.expectImageName = ""; // //重置答案显示
         })
         .catch((e) => {
           console.log(e);
@@ -163,6 +172,14 @@ export default {
     },
 
     saveDialogHandler() {
+      // 此处只做修改答案处理
+      if (this.resetAnswer) {
+        this.$store.dispatch("reset_answer",this.expectImageName);
+        this.resetAnswer = false;
+        // 2. 关闭弹框
+        this.resultDialogVisible = false;
+        return;
+      }
       // 1. 校验答案是否为空
       if (!this.expectImageName) {
         this.$message.error("答案不能为空哦!");
@@ -177,7 +194,6 @@ export default {
 
     saveAnswerDialogHandler() {
       // 1. 检查答案是否为空
-      console.log(this.inputImageName,'inputImageName');
       if (!this.inputImageName) {
         this.$message.error("答案不能为空");
         return;
@@ -191,7 +207,10 @@ export default {
     exitHandler() {
       this.$confirm("是否退出游戏", "温馨提示")
         .then(() => {
+          this.showJionButton = true; //开启加入;
           this.$store.dispatch("sendUserLeave");
+          // 2. 清空输入框内容
+          this.expectImageName = ""; // //重置答案显示
           // this.$router.replace('/login')
         })
         .catch((e) => {
@@ -218,6 +237,7 @@ export default {
 }
 .participants {
   text-align: left;
+  overflow: auto;
 }
 ul li {
   min-width: 90px;
@@ -235,9 +255,21 @@ ul li {
   margin: 10px 0 0;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 980px) {
+  .w-e-scroll{
+      overflow:hidden;
+  }
+  .w-e-scroll:hover{
+      overflow-x:scroll;
+  }
+  .w-e-scroll::-webkit-scrollbar {
+    height: 2px;
+  }
   .panel-area {
     width: 100px;
+  }
+  ul li {
+    font-size: 12px;
   }
 }
 </style>

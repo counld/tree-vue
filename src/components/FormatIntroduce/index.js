@@ -36,6 +36,7 @@ import {
 	Aside,
 	Main,
 	ColorPicker,
+	Popover
 } from 'element-ui';
 
 const Componets = [
@@ -76,6 +77,7 @@ const Componets = [
 	Aside,
 	Main,
 	ColorPicker,
+	Popover,
 ];
 
 export default Componets;

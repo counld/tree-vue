@@ -25,7 +25,7 @@
     </div>
     <div class="messageList" style="height: 60px">
       <fullScreen />
-      <span class="control">控制台</span>
+      <span class="control hover" @click="goToControls">控制台</span>
     </div>
     <userDropdown />
   </div>
@@ -81,6 +81,13 @@ export default {
       };
     },
 
+    goToControls() {
+      if(localStorage.getItem('username') != 'admin') return;
+      this.$router.push({
+        name: 'controls',
+      })
+    },
+
     toDetails(id) {
       this.input = '';
       this.$router.push({
@@ -119,7 +126,7 @@ export default {
   margin-right: 10px;
 }
 .hover:hover {
-  color: lightblue;
+  color: #1677ff;
 }
 .SearchInput {
   position: relative;

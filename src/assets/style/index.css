@@ -89,7 +89,9 @@
 .font-size-14 {
 	font-size: 14px;
 }
-
+.font-size-12 {
+	font-size: 14px;
+}
 .white {
 	background-color: #fff;
 }
@@ -113,6 +115,10 @@
 		display: none;
 	}
 
+}
+
+.overflow {
+	overflow: hidden;
 }
 
 /* editor设置 */

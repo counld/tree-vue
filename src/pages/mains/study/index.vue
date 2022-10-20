@@ -1,87 +1,111 @@
 <template>
   <div>
     <div class="study-cantainer">
-    <h3 style="textalign: center; color: purple; padding: 0 0 5px">
-      如果生命在来一次
-    </h3>
-    <div class="flex">
-      <nav>
+      <h3 style="textalign: center; color: purple; padding: 0 0 5px">
+        如果生命在来一次
+      </h3>
+      <div class="flex">
+        <nav>
           <click-carousel />
           <el-divider content-position="left">手札描述</el-divider>
           <el-card class="box-card">
-            <div v-for="item in articleList" :key="item.id" class="text item under-line">
+            <div
+              v-for="item in articleList"
+              :key="item.id"
+              class="text item under-line"
+            >
               <h3 class="padding-5 alone-ellipsis">
                 <a @click="addHits(item.id)">{{ item.title }}</a>
                 <i class="el-reset">HOT</i>
               </h3>
-              <p class="ellipsis description" :title="item.description" v-if="item.description">
+              <p
+                class="ellipsis description"
+                :title="item.description"
+                v-if="item.description"
+              >
                 {{ item.description }}
               </p>
-              <p v-else class="ellipsis description">没有人事先了解自己到底有多大的力量，直到他试过以后才知道。这启发了我， 培根在不经意间这样说过，阅读使人充实，会谈使人敏捷，写作使人精确...</p>
+              <p v-else class="ellipsis description">
+                没有人事先了解自己到底有多大的力量，直到他试过以后才知道。这启发了我，
+                培根在不经意间这样说过，阅读使人充实，会谈使人敏捷，写作使人精确...
+              </p>
               <p class="flex align-center justify-content">
-                <el-tag>{{item.tag}}</el-tag>
-                <span>{{new Date(item.time).toLocaleString()}}</span>
+                <el-tag>{{ item.tag }}</el-tag>
+                <span>{{ new Date(item.time).toLocaleString() }}</span>
               </p>
             </div>
           </el-card>
-      </nav>
-      <writing :imageUrl="imageUrl" @changeImageUrl="changeImageUrl">
-        <template #upload>
-        <myUpload @handleUpload="handleUpload" :imageUrl="imageUrl"/>
-      </template>
-      </writing>
+        </nav>
+        <writing :imageUrl="imageUrl" @changeImageUrl="changeImageUrl">
+          <template #upload>
+            <myUpload @handleUpload="handleUpload" :imageUrl="imageUrl" />
+          </template>
+        </writing>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 <script>
 import { queryApiArticleHots, queryApiArticleHits } from "@/utils/queryApi";
+import { playTopic } from "@/utils/voice";
 import writing from "@/components/writing";
 import clickCarousel from "@/components/common/click-carousel.vue";
-import { DEFDAULTCARDLISTMAP } from '../../contants';
+import { DEFDAULTCARDLISTMAP } from "../../contants";
 import myUpload from "@/components/my-upload";
 export default {
   name: "study",
   components: { clickCarousel, writing, myUpload },
   data() {
     return {
-      imageUrl:'',
+      imageUrl: "",
       cardList: DEFDAULTCARDLISTMAP,
       articleList: [],
+      msg: "宠辱不惊，看庭前花开花落；去留无意，望天上云卷云舒",
     };
   },
   mounted() {
-    this.getHotsArticle(2) 
+    this.getHotsArticle(2);
+    playTopic(this.msg);
   },
   methods: {
-    getHotsArticle() { 
+    getHotsArticle() {
       queryApiArticleHots
         .call(this)
         .then((res) => {
           this.articleList = res.data;
-        }).catch((err) => {
-          console.log(err.message || '请求出错')
         })
+        .catch((err) => {
+          console.log(err.message || "请求出错");
+        });
     },
     addHits(id) {
       //使用a 标签进行跳转，处出现刷新页面的情况;
       this.$router.push({
-        name: 'detail',
+        name: "detail",
         params: {
           id,
-        }
-      })
+        },
+      });
       queryApiArticleHits.call(this, id);
     },
-    handleUpload(url,res) {
-      if(res.errno === 0) {
+    handleUpload(url, res) {
+      console.log(res.errno,'url',url)
+      if (res.errno === 0) {
         const { data } = res;
         this.imageUrl = data.url;
       }
     },
     changeImageUrl(url) {
       this.imageUrl = url;
-    }
+    },
+    //data 中定义判断IE的方法
+    isIe() {
+      if ("ActiveXObject " in window) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   computed: {},
 };

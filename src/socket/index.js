@@ -3,6 +3,7 @@ import store from '@/store'
 import { Notification, Message } from 'element-ui'
 import { API_URL } from '../../service/config';
 
+//开启socket单独房间连接
 const socket = io(API_URL + '/game');
 
 socket.on('connect', () => {
@@ -39,8 +40,8 @@ socket.on('disconnect', () => {
 })
 
 // 处理游戏开始
-socket.on('game_started', holder => {
-  store.commit('updateHolder', holder)
+socket.on('game_started', (holder) => {
+  store.commit('updateHolder', holder);
   Notification.success(`${holder} 作为主持人开始了新游戏，大家可以开始踊跃猜答案啦！`)
 })
 
@@ -48,6 +49,15 @@ socket.on('game_started', holder => {
 socket.on('already_started', holder => {
   store.commit('updateHolder', holder)
   Notification.warning('当前已有游戏在进行中，主持人是：' + holder)
+})
+// 重新处理答案
+socket.on('reset_answer',() => {
+  Notification.info('主持人已经重新修改了话题答案! ')
+})
+
+//监听话题消息
+socket.on('topicdesc_message',(topicInput) => {
+  store.commit('changeTipic',topicInput);
 })
 
 // 处理终止游戏
@@ -69,7 +79,10 @@ socket.on('starting_line', newLine => {
 socket.on('updating_line', lastLine => {
   store.commit('updateNewLine', lastLine)
 })
-
+//监听保存的线;
+socket.on('update_save_line', saveLine => {
+  store.commit('updateLines', saveLine)
+})
 socket.on('game_answered', ({ alreadyDone, success, nickname, answer }) => {
   if (alreadyDone) {
     Message({
@@ -81,7 +94,7 @@ socket.on('game_answered', ({ alreadyDone, success, nickname, answer }) => {
   }
   if (!success) {
     Message({
-      message: `玩家 ${nickname} 猜的答案不对：${answer}`,
+      message: `玩家 ${nickname} 猜的答案不对：***`,
       type: 'warning',
       offset: 150,
       duration: 3000,
@@ -100,15 +113,16 @@ socket.on('message', function(obj){
 //监听重新开始游戏
 socket.on('reset_game', function() {
   Notification.info('重新开始一场话题!')
-  store.commit('handleReset');
+  store.commit('handleReset','')
+  // store.commit('handleReset',string);
 })
 //监听用户离开
 socket.on('user_leave', nickname => {
+  if(!nickname) return; //用户都没加入,就离开;
   store.commit('delFromNicknames', nickname)
-
+  Notification.info(`${nickname} 离开了这场话题!`)
   if (nickname === store.state.holder) {
-    store.commit('updateHolder', '')
-    store.commit('updateLines', [])
+    store.commit('handleReset')
     Notification.error('主持人离开了游戏!')
   }
 })

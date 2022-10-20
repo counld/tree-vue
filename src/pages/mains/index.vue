@@ -46,6 +46,7 @@ export default {
 <style scoped>
 .margin-top-70 {
   margin-top: 70px;
+  overflow: hidden;
   width: 100%;
 }
 .mask-absolute {

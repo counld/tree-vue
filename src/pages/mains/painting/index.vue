@@ -6,16 +6,22 @@
           <el-button @click="handleShow"> 去聊天 </el-button>
           <el-tag type="info" class="topicTag"
             >@话题:
-            <el-input
-              v-model="topicInput"
+            <span class="topic_color" v-if="topicInput">{{topicInput}}</span>
+            <el-tooltip v-else :disabled="isGameStarted || !holder === nickname" content="开始加入话题, 才有机会开启大头贴, 例如: 答案是一个苹果吗?" effect="light" placement="bottom">
+              <el-input
+              :disabled="!isGameStarted || holder !== nickname"
+              v-model="topicdesc"
+              @change="changeTopic"
               placeholder="根据主持人所画的图形,描述他的最终形态"
-            ></el-input
-          ></el-tag>
+            ></el-input>
+            </el-tooltip>
+          </el-tag>
         </div>
         <div v-if="answerSuccess.type" style="text-align: center; padding: 6px; color: red">
-          <p class="alone-ellipsis">
-            {{ answerSuccess.message
-            }}<el-button v-if="holder === nickname" @click="handleReset">重新来过</el-button>
+          <p class="flex align-center font_size_12">
+              <span class="alone-ellipsis messageInfo">{{ answerSuccess.message
+            }}</span>
+            <el-button v-if="holder === nickname" @click="handleReset">重新来过</el-button>
           </p>
         </div>
       </el-card>
@@ -25,7 +31,7 @@
         <!-- 布局：主体 -->
         <el-container>
           <!-- 左边 -->
-          <app-side-panel />
+          <app-side-panel :topicdesc="topicdesc" @changeTopicdesc="changeTopicdesc"/>
           <!-- 右边 -->
           <app-stage @handleMessage="handleShow" />
         </el-container>
@@ -101,10 +107,12 @@ export default {
       avatar: localStorage.getItem("avatar"),
       beforeTime: true,
       isShow: false,
-      topicInput: "",
+      topicdesc: this.topicInput || '',
     };
   },
-  created() {},
+  crated() {
+    // console.log(this.topicInput,'wedcjk ewiodnkciewnvd我我爹为女的')
+  },
   //updated生命周期钩子函数可以让弹窗在刚打开时，滚动条就在绑定id的盒子的最底部
   methods: {
     handSend() {
@@ -135,12 +143,22 @@ export default {
     },
     handleReset() {
       this.$store.dispatch('resetGame');
+    },
+    //失去焦点发送
+    changeTopic() {
+      this.$store.dispatch('topicdesc_message',this.topicdesc);
+    },
+    //修改话题文案
+    changeTopicdesc(value) {
+      this.topicdesc = value;
     }
   },
   computed: {
-    ...mapState(["MessageInfoList", "answerSuccess", "holder", "nickname"]),
+    ...mapState(["MessageInfoList", "answerSuccess", "holder", "nickname",'topicInput']),
     ...mapGetters(["isGameStarted"]),
   },
+  watch: {
+  }
 };
 </script>
 
@@ -194,6 +212,10 @@ export default {
   display: flex;
   align-items: center;
   margin-left: 1rem;
+}
+.messageInfo {
+  display: inline-block;
+  width: 70%;
 }
 .text-right {
   color: #333;
@@ -283,6 +305,10 @@ p:hover {
 .message {
   z-index: 99;
 }
+.topic_color {
+  font-size: 14px;
+  color: #1677ff;
+}
 @media screen and (max-width: 1200px) {
   .hide {
     visibility: hidden;
@@ -295,8 +321,11 @@ p:hover {
   }
 }
 @media screen and (max-width: 640px) {
+  .ling-games {
+    padding: 4px;
+  }
   .fixed {
-    position: relative;
+    position: absolute;
     margin-top: 2rem;
     width: 100%;
     height: 280px;
@@ -319,6 +348,12 @@ p:hover {
   }
   :deep(.el-textarea__inner) {
     padding: 0;
+  }
+  .font_size_12 {
+    font-size: 12px;
+  }
+  :deep(.el-button--default) {
+    font-size: 12px;
   }
 }
 </style>
