@@ -64,8 +64,8 @@ npm run lint
     location / {
         // # proxy_pass http://127.0.0.1:8080; 把这请求代理到node服务上使用nginx进行访问
         try_files $uri $uri/ @router;		
-		    index  index.html index.htm;
-		    root /www/wwwroot/backstage/dist;
+        index  index.html index.htm; 
+	root /www/wwwroot/backstage/dist;
     }
 
   //  ###配置路由文件
