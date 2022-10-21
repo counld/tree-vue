@@ -4,7 +4,13 @@ const hostMap = {
 	prod: 'https://xuewuboy.club',
 
 }
-export const API_URL = hostMap.dev;
-export const apiUrlImg = hostMap.dev+ '/fileDown?key=';
+let proxypath = '';
+//设置不同环境下的请求地址
+switch(process.env.NODE_ENV){
+	case 'development':  proxypath = hostMap.dev; break;
+	case 'production':  proxypath = hostMap.prod; break;
+}
+export const API_URL = proxypath;
+export const apiUrlImg = proxypath + '/fileDown?key=';
 export const TOKEN_KEY = 'vue-app-token-key';
 export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';

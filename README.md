@@ -58,6 +58,21 @@ npm run lint
     }
 这样就可以把项目请求的api的地址通过nginx代理到node部署的8080的服务资源上了
 
+四. ########################  如何在nginx上配置获取403不到页面时的      ###############################
+
+
+    location / {
+        // # proxy_pass http://127.0.0.1:8080; 把这请求代理到node服务上使用nginx进行访问
+        try_files $uri $uri/ @router;		
+		    index  index.html index.htm;
+		    root /www/wwwroot/backstage/dist;
+    }
+
+  //  ###配置路由文件
+   location @router {
+         rewrite ^.*$ /index.html last;
+      }
+      
 项目请求的环境配置
 // 开发环境地址
 const hostMap = {
