@@ -65,7 +65,7 @@ socket.on('game_stoped', () => {
   // 1. 清理相关数据
   store.commit('updateHolder', '')
   store.commit('updateLines', [])
-
+  store.commit('changeTipic', '');
   // 2. 弹出提示消息
   Notification.warning('主持人终止了当前游戏')
 })
@@ -119,7 +119,8 @@ socket.on('reset_game', function() {
 //监听用户离开
 socket.on('user_leave', nickname => {
   if(!nickname) return; //用户都没加入,就离开;
-  store.commit('delFromNicknames', nickname)
+  store.commit('delFromNicknames', nickname);
+  store.commit('changeTipic', '');
   Notification.info(`${nickname} 离开了这场话题!`)
   if (nickname === store.state.holder) {
     store.commit('handleReset')

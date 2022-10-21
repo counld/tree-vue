@@ -42,6 +42,14 @@
       >
       <el-button
         v-if="isGameStarted && nickname === holder"
+        type="success"
+        size="small"
+        icon="el-icon-refresh"
+        @click="repaintGameHandler"
+        >重新绘制</el-button
+      >
+      <el-button
+        v-if="isGameStarted && nickname === holder"
         type="warning"
         size="small"
         icon="el-icon-delete"
@@ -153,11 +161,17 @@ export default {
       // 2. 清空输入框内容
       // this.expectImageName = '' // //重置答案显示
     },
+    // 重新绘制话题
+    repaintGameHandler() {
+      this.$store.dispatch('resetGame');
+    },
+    
     stopGameHandler() {
       this.$confirm("确定要终止游戏吗?", "温馨提示")
         .then(() => {
           // 发送游戏终止申请
           this.$store.dispatch("sendStopGame");
+          this.$emit('changeTopicdesc', '');
           // 2. 清空输入框内容
           this.expectImageName = ""; // //重置答案显示
         })

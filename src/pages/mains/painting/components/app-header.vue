@@ -37,8 +37,8 @@
           popper-class="popper_present_width"
           placement="bottom"
           v-model="lineVisible">
-          <p style="margin-bottom: 10px; text-align: center;" class="show_line" v-if="saveLine.length" @click="showLine">保存话题图</p>
-          <p style="margin-bottom: 10px" v-else>你还没有保存过</p>
+          <p style="margin-bottom: 10px; text-align: center;" class="show_line" v-if="saveLine.length" @click="showLine">显示已保存话题图</p>
+          <p style="margin-bottom: 10px" v-else>一张话题图都没得显示过</p>
           <div style="text-align: right; margin-top: 10px">
             <el-button size="mini" type="text" @click="lineVisible = false">取消</el-button>
           </div>
@@ -98,16 +98,14 @@ export default {
     },
     // 记录画图列表
     handleRecord() {
-      const lineList = localStorage.getItem('saveLine.lengths');
+      const lineList = localStorage.getItem('saveLines');
       const line = JSON.parse(lineList);
       this.saveLine = line;
       this.lineVisible = false;
     },
     handelSaveList() {
       if(!this.expectSaveName && !this.lines.length) return;
-      const saveMap = new Map();
       const result = JSON.stringify(this.lines);
-      saveMap.set(this.expectSaveName,result);
       localStorage.setItem('saveLines',result);
       this.SaveVisible = false;
     },
@@ -156,6 +154,7 @@ export default {
 
 .show_line {
   padding: 4px;
+  color: rebeccapurple;
 }
 .show_line:hover {
   cursor: pointer;

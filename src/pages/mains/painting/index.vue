@@ -31,7 +31,7 @@
         <!-- 布局：主体 -->
         <el-container>
           <!-- 左边 -->
-          <app-side-panel :topicdesc="topicdesc" @changeTopicdesc="changeTopicdesc"/>
+          <app-side-panel @changeTopicdesc="changeTopicdesc"/>
           <!-- 右边 -->
           <app-stage @handleMessage="handleShow" />
         </el-container>
@@ -148,7 +148,7 @@ export default {
     changeTopic() {
       this.$store.dispatch('topicdesc_message',this.topicdesc);
     },
-    //修改话题文案
+    // 修改话题文案
     changeTopicdesc(value) {
       this.topicdesc = value;
     }
