@@ -11,6 +11,8 @@ const state = {
   holder: '', // 游戏主持人
   lines: [], // 房间的绘图信息 (画了多少根线)
   MessageInfoList: JSON.parse(sessionStorage.getItem('MessageInfoList')) || [], //系统消息
+  copyMessageInfoList: [],
+  readMessageInfoAfterLength: 0,
   lineWidth: 5,
   lineColor: '#409EFF',
   topicInput: '',
@@ -52,10 +54,22 @@ const mutations = {
   delFromNicknames(state, nickname) {
     state.nicknames = state.nicknames.filter(item => item !== nickname)
   },
+  // 更新消息
   upDateMessage(state, objMsg) {
     state.MessageInfoList = state.MessageInfoList.concat(objMsg);
+    const newListLen = state.MessageInfoList.length;
+    const oldListLen = state.copyMessageInfoList.length;
+    state.readMessageInfoAfterLength = newListLen - oldListLen -1;
     const info = JSON.stringify(state.MessageInfoList);
     sessionStorage.setItem('MessageInfoList', info);
+  },
+  // 复值消息列表用于判断消息未读数
+  upDateCopyMessageInfoList(state) {
+    state.copyMessageInfoList = state.MessageInfoList;
+  },
+  // 消息获取未读条数
+  upDateCopyMessageInfoLength(state) {
+    state.readMessageInfoAfterLength = 0;
   },
   changeLineWidth(state, lineWidth) {
     state.lineWidth = lineWidth;

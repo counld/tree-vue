@@ -38,11 +38,13 @@
       </div>
     </div>
     <!-- 添加聊天框 -->
+    <div class="message_nums" v-if="readMessageInfoAfterLength">新来 <span class="nums_color">{{readMessageInfoAfterLength}} </span>条消息未查看</div>
     <div
       v-if="!isShow"
       :class="['fixed', 'flex', 'hide', message ? 'message' : '']"
+      @click="handleSaveMessage"
     >
-      <div class="padding-auto" id="scroll">
+      <div class="padding-auto" id="scroll" ref="scroll">
         <div class="wh">
           <ul>
             <div v-for="(item, index) in MessageInfoList" :key="index">
@@ -110,10 +112,19 @@ export default {
       topicdesc: this.topicInput || '',
     };
   },
-  crated() {
-    // console.log(this.topicInput,'wedcjk ewiodnkciewnvd我我爹为女的')
-  },
+  crated() {},
   //updated生命周期钩子函数可以让弹窗在刚打开时，滚动条就在绑定id的盒子的最底部
+  mounted() {
+    this.$nextTick (() => {
+       if (document.getElementById ('scroll')) {
+            const selectWrap = document.getElementById ('scroll');
+            selectWrap.addEventListener ('scroll', this.handleSaveMessage);
+       }
+    })
+  },
+  beforeDestroy() {
+    this.$refs.scroll.removeEventListener('scroll',this.handleSaveMessage);
+  },
   methods: {
     handSend() {
       const messageInfo = {
@@ -124,6 +135,7 @@ export default {
       };
       if (this.input == "") return;
       this.$store.dispatch("userDiscussInfo", messageInfo);
+      this.$store.commit('upDateCopyMessageInfoList');
       this.input = "";
       this.scrollToBottom();
     },
@@ -151,14 +163,21 @@ export default {
     // 修改话题文案
     changeTopicdesc(value) {
       this.topicdesc = value;
+    },
+    //消息沒查看前的点击copy
+    handleSaveMessage() {
+      this.$store.commit('upDateCopyMessageInfoLength');
+    }
+  },
+  watch: {
+    input: function() {
+      this.scrollToBottom();
     }
   },
   computed: {
-    ...mapState(["MessageInfoList", "answerSuccess", "holder", "nickname",'topicInput']),
+    ...mapState(["MessageInfoList", "answerSuccess", "holder", "nickname",'topicInput', 'readMessageInfoAfterLength']),
     ...mapGetters(["isGameStarted"]),
   },
-  watch: {
-  }
 };
 </script>
 
@@ -201,6 +220,18 @@ export default {
   flex-direction: column;
   background: #999;
 }
+.message_nums {
+  position: absolute;
+  font-size: 14px;
+  top: 112px;
+  left: 15px;
+  color: rgb(185, 204, 75);
+  z-index: 9999;
+}
+.nums_color {
+  color: rgb(243, 20, 31);
+  font-size: 16px;
+}
 .padding-auto {
   padding: 4px;
   overflow: hidden;
@@ -227,6 +258,7 @@ export default {
 ul {
   /* min-height: 100vh; */
   margin-bottom: 6px;
+  padding-bottom: 10px;
 }
 li {
   margin: 8px 0;
@@ -354,6 +386,14 @@ p:hover {
   }
   :deep(.el-button--default) {
     font-size: 12px;
+  }
+  .message_nums {
+    top: 108px;
+    left: 5px;
+    font-size: 12px;
+  }
+  .nums_color {
+    font-size: 14px;
   }
 }
 </style>

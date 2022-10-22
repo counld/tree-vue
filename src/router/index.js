@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '../pages/mains/home';
 
 Vue.use(Router);
 // vue2项目中使用keep-alive,可在路由跳回该组件时展示跳走前的数据形式，滚动条等。
@@ -12,7 +11,7 @@ const routes = [
 	{
 		path: '/mains',
 		name: 'mains',
-		component: () => import('../pages/mains'),
+		component: () => import(/* webpackChunkName: "mains" */ '../pages/mains'),
 		redirect: '/mains/study',
 		//添加权限访问，表示只有登录之后才能进行该操
 		meta: {
@@ -22,7 +21,7 @@ const routes = [
 			{
 				path: 'home/:username',
 				name: 'home',
-				component: Home,
+				component: () => import(/* webpackChunkName: "home" */ '../pages/mains/home'),
 				meta: {
 					title: 'xuewu主页',
 					keepAlive: true,
@@ -31,7 +30,7 @@ const routes = [
 			{
 				path: 'riddle/:riddleId',
 				name: 'riddle',
-				component: () => import('../pages/mains/riddle'),
+				component: () => import(/* webpackChunkName: "riddle" */ '../pages/mains/riddle'),
 				meta: {
 					title: '猜谜语详情',
 				}
@@ -39,7 +38,7 @@ const routes = [
 			{
 				path: 'detail/:id',
 				name: 'detail',
-				component: () => import('../pages/mains/details'),
+				component: () => import(/* webpackChunkName: "details" */ '../pages/mains/details'),
 				meta: {
 					title: '文章详情页',
 				}
@@ -47,7 +46,7 @@ const routes = [
 			{
 				path: 'study',
 				name: 'study',
-				component: () => import('../pages/mains/study'),
+				component: () => import(/* webpackChunkName: "study" */ '../pages/mains/study'),
 				meta: {
 					title: '创作故事',
 					keepAlive: true,
@@ -56,7 +55,7 @@ const routes = [
 			{
 				path: 'painting',
 				name: 'painting',
-				component: () => import('../pages/mains/painting'),
+				component: () => import(/* webpackChunkName: "painting" */ '../pages/mains/painting'),
 				meta: {
 					title: '在线请求话题',
 					keepAlive: true,
@@ -65,7 +64,7 @@ const routes = [
 			{
 				path: 'person/show',
 				name: 'person/show',
-				component: () => import('../pages/mains/show'),
+				component: () => import(/* webpackChunkName: "show" */ '../pages/mains/show'),
 				meta: {
 					title: '展示个人作品',
 					keepAlive: true,
@@ -76,7 +75,7 @@ const routes = [
 	{
 		path: '/controls',
 		name: 'controls',
-		component: () => import('../pages/controls'),
+		component: () => import(/* webpackChunkName: "controls" */ '../pages/controls'),
 		meta: {
 			title: '管理信息'
 		}
@@ -84,7 +83,7 @@ const routes = [
 	{
 		path: '/login',
 		name: 'login',
-		component: () => import('../pages/login'),
+		component: () => import(/* webpackChunkName: "login" */ '../pages/login'),
 		meta: {
 			title: '登入页'
 		}
@@ -92,14 +91,14 @@ const routes = [
 	{
 		path: '/register',
 		name: 'register',
-		component: () => import('../pages/register'),
+		component: () => import(/* webpackChunkName: "register" */ '../pages/register'),
 		meta: {
 			title: '注册页',
 		}
 	},
 	{
 		path: '*',
-		component: () => import('../pages/NotFound'),
+		component: () => import(/* webpackChunkName: "NotFound" */ '../pages/NotFound'),
 	}
 ]
 
