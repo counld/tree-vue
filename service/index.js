@@ -1,4 +1,3 @@
-const routerApi = require('./Api/routerApi');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
@@ -112,11 +111,14 @@ app.all('*', function (req, res, next) {
     next();
   }
 });
-app.use(bodyParser.json()); // 以json格式返回出去
+app.use(bodyParser.json({ limit: '50mb' })); // 以json格式返回出去
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 后端api路由
-app.use('/api', routerApi);
+// admins 页面管理
+app.use('/api/admins', require('./Api/admins/index'));
+// 用户clinet
+app.use('/api', require('./Api/guestApi/routerApi'));
 
 // 上传操作
 app.post('/api/upload/image', upload.single("editormd-image-file"), (req, res, next) => {
@@ -186,6 +188,10 @@ app.post('/api/upload/avatar', avatar.single('file'), (req, res, next) => {
     })
   }
 })
+
+
+// 上传视频入口接口
+require('./upload/UploadVideo.js')(app);
 
 // 监听端口
 server.listen(httpPort);

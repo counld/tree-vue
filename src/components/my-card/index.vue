@@ -50,7 +50,7 @@ import {
   queryApiList,
   queryApiArticleHits,
   GetArticleNextList,
-} from "@/utils/queryApi";
+} from "@/api/queryApi";
 export default {
   name: "my-card",
   data() {

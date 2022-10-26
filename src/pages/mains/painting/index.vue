@@ -69,7 +69,7 @@
                 </p>
               </li>
               <div v-else class="font-size-14 text-center">
-                <span>{{ item.sysInfo }}</span>
+                欢迎 <span class="sysInfo_color">{{ item.sysInfo }}</span> 刚刚进入房间!
               </div>
             </div>
           </ul>
@@ -232,6 +232,7 @@ export default {
   color: rgb(243, 20, 31);
   font-size: 16px;
 }
+
 .padding-auto {
   padding: 4px;
   overflow: hidden;
@@ -320,6 +321,9 @@ p:hover {
   border: 10px solid;
   border-color: transparent;
   border-left-color: greenyellow;
+}
+.sysInfo_color {
+  color: red;
 }
 .absolute-bottom {
   width: 100%;

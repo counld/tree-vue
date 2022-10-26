@@ -101,11 +101,18 @@
 	padding: 6px;
 }
 
+.position-fixed {
+	position: fixed;
+	width: 100%;
+}
 .relative {
 	position: relative;
 }
 .absolute {
 	position: absolute;
+}
+.overflow-hidden {
+	overflow: hidden;
 }
 .hover-red:hover {
 	color: #ff0000;

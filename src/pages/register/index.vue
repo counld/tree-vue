@@ -24,7 +24,7 @@
 </template>
 <script>
 import myForm from "@/components/my-form";
-import { queryCheckUser, PostUserRegister } from "@/utils/queryApi";
+import { queryCheckUser, PostUserRegister } from "@/api/queryApi";
 export default {
   name: "register",
   components: {myForm},

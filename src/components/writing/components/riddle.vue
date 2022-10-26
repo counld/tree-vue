@@ -37,7 +37,7 @@
   </el-card>
 </template>
 <script>
-import { addRiddle } from "@/utils/queryApi";
+import { addRiddle } from "@/api/queryApi";
 export default {
   name: "raddle",
   props: ["input", "isOpen", "tag", "description", "id"],

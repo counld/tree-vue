@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import { queryApiArticleHots, queryApiArticleHits } from "@/utils/queryApi";
+import { queryApiArticleHots, queryApiArticleHits } from "@/api/queryApi";
 import { playTopic } from "@/utils/voice";
 import writing from "@/components/writing";
 import clickCarousel from "@/components/common/click-carousel.vue";

@@ -4,7 +4,14 @@
       <aside-componet></aside-componet>
       <main>
         <div class="warp-carousel">
-          <my-carousel :swiperList="swiperList" />
+          <my-carousel :swiperList="swiperList" v-if="isOpenCarousel"/>
+          <div class="videoWrapper">
+            <div  v-for="(item, index) in videoUrlList" :key="index" class="videoList">
+              <div class="video-title">{{item.title}}</div>
+              <div class="video-description ellipsis">{{item.description}} </div>
+              <video class="videoContronls" autoplay controls :src="API_URL + item.videoUrl"></video>
+            </div>
+          </div>
         </div>
         <!--I'm a comment.-->
         <article class="flex-wrap">
@@ -17,7 +24,9 @@
 </template>
 
 <script>
-import { queryApiSwipper } from "@/utils/queryApi";
+import { queryApiSwipper } from "@/api/queryApi";
+import { queryAdminsHotsVideoList } from "@/api/admins";
+import { API_URL } from "@/config/env.js";
 import asideComponet from "@/components/aside/aside.vue";
 import myCard from "@/components/my-card";
 import myCarousel from "@/components/my-carousel";
@@ -33,9 +42,18 @@ export default {
       tab: "",
       swiperList: [],
       username: localStorage.getItem("username") || "",
+      isOpenCarousel: true,
+      videoUrlList: [],
+      API_URL: API_URL
     };
   },
-  created() {},
+  async created() {
+   const { data } = await queryAdminsHotsVideoList.call(this, 1);
+   if(data.length) {
+    this.isOpenCarousel = false;
+    this.videoUrlList = data;
+   }
+  },
   mounted() {
     this.getSwipper();
   },
@@ -72,11 +90,44 @@ main {
   width: 100%;
 }
 .warp-carousel {
+  position: relative;
   margin-bottom: 1rem;
   background: rgba(255, 255, 255, 0.15);
 }
 .el-carousel {
   border-radius: 4px;
+}
+.videoWrapper {
+  bottom: 0;
+  min-width: 300px;
+  overflow: hidden;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+}
+.videoList {
+ position: relative;
+ width: 100%;
+ height: 100%;
+}
+.videoContronls {
+  height: 300px;
+  width: 100%;
+}
+.video-title {
+  position: absolute;
+  top: 10px;
+  left: 16px;
+  background: rgba(255, 255, 255, 0.15);
+}
+.video-description {
+  position: absolute;
+  width: 90%;
+  left: 10px;
+  bottom: 10px;
+  opacity: .8;
+  font-size: 14px;
+  color:  #ffe601;
 }
 .list-title {
   color: #232333;
@@ -121,6 +172,9 @@ main {
   }
   .warp-carousel {
     margin-right: 0;
+  }
+  .video-description {
+    opacity: 0.5;
   }
 }
 @media (min-width: 1024px) {

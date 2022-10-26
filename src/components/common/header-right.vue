@@ -25,7 +25,7 @@
     </div>
     <div class="messageList" style="height: 60px">
       <fullScreen />
-      <span class="control hover" @click="goToControls">控制台</span>
+      <span class="control hover" @click="goToAdmins">控制台</span>
     </div>
     <userDropdown />
   </div>
@@ -34,7 +34,7 @@
 <script>
 import userDropdown from "./user-dropdown.vue";
 import fullScreen from "@/components/fullScreen";
-import { queryApiArticleSearchList } from "@/utils/queryApi";
+import { queryApiArticleSearchList } from "@/api/queryApi";
 export default {
   name: "header-right",
   components: { userDropdown, fullScreen },
@@ -81,10 +81,10 @@ export default {
       };
     },
 
-    goToControls() {
+    goToAdmins() {
       if(localStorage.getItem('username') != 'admin') return;
       this.$router.push({
-        name: 'controls',
+        name: 'admins',
       })
     },
 

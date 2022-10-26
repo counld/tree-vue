@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import adminsManageRouter from './admins';
 Vue.use(Router);
 // vue2项目中使用keep-alive,可在路由跳回该组件时展示跳走前的数据形式，滚动条等。
 const routes = [
@@ -72,14 +73,7 @@ const routes = [
 			},
 		]
 	},
-	{
-		path: '/controls',
-		name: 'controls',
-		component: () => import(/* webpackChunkName: "controls" */ '../pages/controls'),
-		meta: {
-			title: '管理信息'
-		}
-	},
+	...adminsManageRouter,
 	{
 		path: '/login',
 		name: 'login',

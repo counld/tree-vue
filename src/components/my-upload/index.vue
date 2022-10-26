@@ -13,9 +13,9 @@
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
   </div>
-</template>
+</template>s
 <script>
-  import { API_URL } from "../../../service/config";
+  import { API_URL } from "@/config/env.js";
 export default {
   name: "my-upload",
   props: ['imageUrl'],

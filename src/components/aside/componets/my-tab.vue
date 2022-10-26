@@ -31,7 +31,7 @@
 	</div>
 </template>
 <script>
-  import { queryApiNewestRiddleList } from "@/utils/queryApi";
+  import { queryApiNewestRiddleList } from "@/api/queryApi";
   export default {
     data() {
       return {

@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import store from '@/store'
 import { Notification, Message } from 'element-ui'
-import { API_URL } from '../../service/config';
+import { API_URL } from '@/config/env.js';
 
 //开启socket单独房间连接
 const socket = io(API_URL + '/game');
@@ -20,7 +20,7 @@ socket.on('room_info', ({ nicknames, holder, lines }) => {
 // 别人进入房间, 监听user_enter事件, 获取进入房间的用户信息
 socket.on('user_enter', nickname => {
   store.commit('addToNicknames', nickname)
-  const msg = `欢迎 ${nickname}刚刚进入房间！`
+  const msg = `${nickname}`
   const objMsg = {
     username: nickname,
     sysInfo: msg,

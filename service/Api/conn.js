@@ -1,5 +1,8 @@
 var conn = require('../mysql');
-var $sql = require('../sqlMap');
+var $guestSql = require('./guestApi/sqlMap');
+var $adminsSql = require('./admins/adminsMapSql');
+
+var $sql = Object.assign({}, $adminsSql, $guestSql);
 
 function ServerConn(sql,params,res) {
 		const sqls = $sql[sql]

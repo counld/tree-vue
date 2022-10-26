@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import { addArtice } from "@/utils/queryApi";
+import { addArtice } from "@/api/queryApi";
 import { SELECTMAP } from "@/pages/contants";
 import myEditor from "@/components/my-editor";
 import riddle from "./components/riddle.vue";

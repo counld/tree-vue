@@ -29,8 +29,8 @@
   </div>
 </template>
 <script>
-import { TOKEN_KEY } from "../../../service/config";
-import { AuthLogin } from "../../utils/queryApi";
+import { TOKEN_KEY } from "@/config/env.js";
+import { AuthLogin } from "@/api/queryApi";
 import myForm from "@/components/my-form";
 export default {
   name: "login",

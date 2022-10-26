@@ -36,7 +36,13 @@ import {
 	Aside,
 	Main,
 	ColorPicker,
-	Popover
+	Popover,
+	Menu,
+	MenuItem,
+	Submenu,
+	MenuItemGroup,
+	Popconfirm,
+	Progress,
 } from 'element-ui';
 
 const Componets = [
@@ -78,6 +84,12 @@ const Componets = [
 	Main,
 	ColorPicker,
 	Popover,
+	Menu,
+	MenuItem,
+	Submenu,
+	MenuItemGroup,
+	Popconfirm,
+	Progress,
 ];
 
 export default Componets;

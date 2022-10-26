@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { queryApiDetail } from "@/utils/queryApi";
+import { queryApiDetail } from "@/api/queryApi";
 import goBack from "@/components/common/go-back.vue";
 import GoEdit from "@/components/common/go-edit.vue";
 export default {

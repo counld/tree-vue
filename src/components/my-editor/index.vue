@@ -20,7 +20,7 @@
 <script>
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import { isMobile } from "@/utils/judgmentTools.js";
-import { API_URL} from "../../../service/config.js";
+import { API_URL} from "@/config/env.js";
 export default {
   name: "my-edtior",
   components: { Editor, Toolbar },

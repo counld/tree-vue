@@ -52,7 +52,7 @@
   </div>
 </template>
 <script>
-import { queryApiRiddleList, queryApiNextRiddle,queryApiriddleIdData } from "@/utils/queryApi";
+import { queryApiRiddleList, queryApiNextRiddle,queryApiriddleIdData } from "@/api/queryApi";
 import { shuffle } from "@/utils/format.js";
 export default {
   name: "riddle-card",
