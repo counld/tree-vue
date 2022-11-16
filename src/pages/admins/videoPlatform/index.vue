@@ -101,12 +101,16 @@ export default {
       },
     };
   },
+  created() {
+    console.log("spark",'SparkMD5');
+  },
   methods: {
     //方法
     fileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       let name = files[0].name.toLowerCase();
+      console.log(files, 'files');
       if (
         !/\.(avi|wmv|mpeg|mp4|mov|mkv|flv|f4v|m4v|rmvb|rm|3gp|dat|ts|mts|vob)$/.test(
           name

@@ -1,4 +1,5 @@
 <template>
+ <!-- <scale-box> -->
   <div class="flex" ref="container">
     <!-- 头部信息 -->
     <headers />
@@ -13,9 +14,11 @@
       <router-view v-if="!$route.meta.keepAlive"></router-view>
     </div>
   </div>
+ <!-- </scale-box> -->
 </template>
 
 <script>
+// import ScaleBox from "@/components/scale/index.vue";
 import headerRight from "@/components/common/header-right.vue";
 import headers from "@/components/common/header.vue";
 export default {

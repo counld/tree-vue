@@ -15,4 +15,8 @@ export const routerMap = [
 		path: '/mains/person/show',
 		title: '个人展示'
 	},
+	{
+		path: '/mains/movie',
+		title: '宣传影片',
+	}
 ]

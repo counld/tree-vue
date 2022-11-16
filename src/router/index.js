@@ -71,6 +71,15 @@ const routes = [
 					keepAlive: true,
 				}
 			},
+			{
+				path: 'movie',
+				name: 'movie',
+				component: () =>  import(/* webpackChunkName: "movie" */ '../pages/mains/movie'),
+				meta: {
+					title: '宣传影片',
+					keepAlive: true,
+				}
+			}
 		]
 	},
 	...adminsManageRouter,

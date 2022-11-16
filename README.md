@@ -176,6 +176,17 @@ app.get('/socket.io', function (req, res) {
 
 ```
 
+
+## 新增scale-box的包裹组件，使得组件能自私应大屏显示器
+```javascript
+
+ if (this.$refs.ScaleBox && !this.isShow) {
+        this.$refs.ScaleBox.style.setProperty("--scale", this.scale);
+      }
+  //css 参数的核心
+  transform: scale(var(--scale)) translate(-50%, -50%);
+
+```
 ## 富文本编辑器
 https://www.wangeditor.com/v5/getting-started.html
 
