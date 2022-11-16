@@ -189,7 +189,7 @@ app.get('/socket.io', function (req, res) {
 ```
 
 ### 新增了git commit 提交检测
-规范了git提交必须要说明格式
+规范了git提交必须要说明格式是
 ## 富文本编辑器
 https://www.wangeditor.com/v5/getting-started.html
 
